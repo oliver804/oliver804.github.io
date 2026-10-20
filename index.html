@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Oliver’s Lab — software engineer, small tools, open source</title>
-<meta name="description" content="Oliver is a software engineer working on Java services, data platforms and front-end code. Local Route Launcher is open source for macOS and Windows; the rest of the site is the record of building it.">
+<title>Oliver’s Lab — back-end, data platforms, small tools</title>
+<meta name="description" content="Oliver writes Java services and data platforms by trade, and native desktop tools on the side. Local Route Launcher is public for macOS and Windows.">
 <link rel="canonical" href="https://oliver804.github.io/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f2f0e9">
@@ -12,8 +12,8 @@
 <meta name="msvalidate.01" content="EFB17702F2A75AF7F82DA13C6CEB2285" />
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Oliver’s Lab">
-<meta property="og:title" content="Oliver’s Lab — software engineer, small tools, open source">
-<meta property="og:description" content="One shipped tool for macOS and Windows, its source, and the notes that came out of building it.">
+<meta property="og:title" content="Oliver’s Lab — back-end, data platforms, small tools">
+<meta property="og:description" content="Java services, data platforms, and one native desktop tool that is public for macOS and Windows.">
 <meta property="og:url" content="https://oliver804.github.io/">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://oliver804.github.io/assets/img/og-card.png">
@@ -21,11 +21,11 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="author" content="Oliver">
-<meta property="og:image:alt" content="Oliver’s Lab — software engineer, small tools, open source">
-<meta name="twitter:title" content="Oliver’s Lab — software engineer, small tools, open source">
-<meta name="twitter:description" content="One shipped tool for macOS and Windows, its source, and the notes that came out of building it.">
+<meta property="og:image:alt" content="Oliver’s Lab — back-end engineer, data platforms, small tools">
+<meta name="twitter:title" content="Oliver’s Lab — back-end engineer, data platforms, small tools">
+<meta name="twitter:description" content="Java services, data platforms, and one native desktop tool that is public for macOS and Windows.">
 <meta name="twitter:image" content="https://oliver804.github.io/assets/img/og-card.png">
-<meta name="twitter:image:alt" content="Oliver’s Lab — software engineer, small tools, open source">
+<meta name="twitter:image:alt" content="Oliver’s Lab — back-end engineer, data platforms, small tools">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -36,15 +36,18 @@
       "name": "Oliver",
       "url": "https://oliver804.github.io/",
       "jobTitle": "Software engineer",
-      "description": "Software engineer working on back-end services, data platforms and front-end code.",
+      "description": "Software engineer working on Java services, data platforms and front-end code, and building native desktop tools.",
       "knowsAbout": [
         "Software engineering",
         "Java",
+        "Spring Boot",
         "Microservices",
         "Data engineering",
+        "Data platforms",
+        "Data quality",
         "React",
         "AI-assisted development",
-        "Developer tools"
+        "Cross-platform desktop applications"
       ],
       "sameAs": [
         "https://github.com/oliver804"
@@ -55,7 +58,7 @@
       "@id": "https://oliver804.github.io/#website",
       "url": "https://oliver804.github.io/",
       "name": "Oliver's Lab",
-      "description": "Software engineer working on Java services, data platforms and front-end code. One shipped tool, its source, and the notes that came out of building it.",
+      "description": "Software engineer working in Java services and data platforms, with one public desktop tool and the notes that came out of building it.",
       "inLanguage": "en",
       "publisher": {
         "@id": "https://oliver804.github.io/#person"
@@ -75,7 +78,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "url": "https://oliver804.github.io/projects/",
+          "url": "https://oliver804.github.io/about/#colophon",
           "name": "Oliver's Lab — this site"
         }
       ]
@@ -126,10 +129,12 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   <section class="intro">
     <div class="wrap">
       <h1>I build small tools, then write down what they cost.</h1>
-      <p class="bio">I’m Oliver, a software engineer working on Java services, data platforms and front-end code — mostly the parts that have to keep running after release. Two things here are public: a launcher I ship for macOS and Windows, and this site. The notes are what came out of building the first one.</p>
+      <p class="bio">I’m Oliver, a software engineer. Most of my working hours go into Java services and the data pipelines behind them — the part that decides whether a number is still usable a year later. React when something has to become a screen, native desktop when a tool has to be installed. One of those tools is public: Local Route Launcher, for macOS and Windows. The notes here are what came out of shipping it.</p>
+      <p class="mono stack">Java · Spring Boot · microservices · data platforms · React · AI-assisted engineering · Swift / C#</p>
       <p class="statusline">
         <span><b>Shipped</b> 19 Oct 2026 — Local Route Launcher 1.2.0</span>
-        <span>This site last edited 20 Oct 2026</span>
+        <span>MIT · macOS + Windows</span>
+        <span>Notes: 4</span>
       </p>
     </div>
   </section>
@@ -138,7 +143,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     <div class="wrap">
       <div class="sec-head">
         <h2>Work</h2>
-        <p class="sec-note">Two public repositories</p>
+        <p class="sec-note">One application, one repository of this site</p>
       </div>
 
       <ol class="work">
@@ -151,11 +156,11 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
               </div>
               <p class="work-facts">v1.2.0 · macOS 13+ · Windows 10/11 · MIT · 19 Oct 2026</p>
               <div class="work-copy">
-                <p>A native launcher that gives a compatible ChatGPT desktop app its own HTTP proxy — without turning on TUN, changing the system proxy, or touching DNS.</p>
-                <p>Most proxy setups reconfigure the machine. This one reconfigures a single launch: it passes the proxy as a Chromium argument and as environment variables, keeps localhost off the proxy so local tools keep working, and reports what it measured rather than whether it “worked”.</p>
+                <p>A native launcher that starts a compatible ChatGPT desktop app with your own HTTP proxy, for that launch only. It uses a proxy you already run; it does not provide one, and it does not touch the system proxy, DNS or routing.</p>
+                <p>The interesting part is what it refuses to claim: three connection checks that each state what they measured, a second platform that shares behaviour but no code, and a release that will not publish until both builds pass.</p>
               </div>
               <p class="work-links">
-                <a href="/projects/local-route-launcher/">Project notes</a>
+                <a href="/projects/local-route-launcher/">Project notes and downloads</a>
                 <a class="is-muted ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher">Source</a>
                 <a class="is-muted ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher/releases/tag/v1.2.0">Download 1.2.0</a>
               </p>
@@ -167,15 +172,15 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           </div>
         </li>
 
-        <li class="work-item">
+        <li class="work-item work-item--compact">
           <div class="work-num">02</div>
           <div class="work-main">
             <div class="work-top">
-              <h3 class="work-name"><a href="/about/#colophon">This site</a></h3>
+              <h3 class="work-name"><a href="/about/#colophon">Oliver’s Lab — this site</a></h3>
             </div>
-            <p class="work-facts">2026 · hand-written HTML · one stylesheet · no build step</p>
+            <p class="work-facts">2026 · HTML · one stylesheet · no build step</p>
             <div class="work-copy">
-              <p>Five destinations, one CSS file and a self-hosted typeface subset. No framework, no build step, and no page that needs a script in order to render — which is why it will still open in ten years without a toolchain.</p>
+              <p>Hand-written HTML, one stylesheet and a self-hosted typeface. The source is public, along with the rules for adding a page to it.</p>
             </div>
             <p class="work-links">
               <a href="/about/#colophon">How it is built</a>
@@ -184,8 +189,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           </div>
         </li>
       </ol>
-
-      <p class="work-note">Two more things are in progress and not public. They appear here when they run, not when they start.</p>
     </div>
   </section>
 
@@ -193,7 +196,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     <div class="wrap">
       <div class="sec-head">
         <h2>Notes</h2>
-        <p class="sec-note">Four, all written while building</p>
+        <p class="sec-note">Four, all from one project</p>
       </div>
       <ul class="notes">
         <li>
@@ -221,7 +224,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           </a>
         </li>
       </ul>
-      <p class="small notes-foot">There is no publishing schedule. A note gets written when a decision turns out to have a cost worth recording, which is roughly twice a year.</p>
+      <p class="small notes-foot">A note gets written when a decision turns out to have a cost worth recording. <a class="link" href="/about/#working-together">Working together</a> · <a class="link" href="/about/#contact">Contact</a></p>
     </div>
   </section>
 

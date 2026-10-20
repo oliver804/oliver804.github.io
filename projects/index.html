@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Work — projects by Oliver</title>
-<meta name="description" content="Two public repositories by Oliver: Local Route Launcher, a native macOS and Windows launcher that scopes an HTTP proxy to a single app launch, and the source of this site. With what each one cannot do.">
+<title>Work — projects and engineering practice</title>
+<meta name="description" content="Local Route Launcher for macOS and Windows, the source of this site, and the five engineering areas Oliver works in professionally. Kept apart on purpose.">
 <link rel="canonical" href="https://oliver804.github.io/projects/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f2f0e9">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Oliver’s Lab">
-<meta property="og:title" content="Work — projects by Oliver">
-<meta property="og:description" content="Two repositories, both maintained by hand. What each one does, and what it cannot do.">
+<meta property="og:title" content="Work — a public desktop tool, this site, and engineering practice">
+<meta property="og:description" content="One downloadable application, one public repository, and the five areas Oliver works in professionally — kept apart, because they are different kinds of evidence.">
 <meta property="og:url" content="https://oliver804.github.io/projects/">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://oliver804.github.io/assets/img/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="author" content="Oliver">
-<meta property="og:image:alt" content="Work — projects by Oliver">
-<meta name="twitter:title" content="Work — projects by Oliver">
-<meta name="twitter:description" content="Two public repositories by Oliver: a native launcher that scopes an HTTP proxy to one app launch, and the source of this site.">
+<meta property="og:image:alt" content="Work — a public desktop tool, this site, and engineering practice">
+<meta name="twitter:title" content="Work — a public desktop tool, this site, and engineering practice">
+<meta name="twitter:description" content="Local Route Launcher for macOS and Windows, the source of this site, and the engineering areas Oliver works in.">
 <meta name="twitter:image" content="https://oliver804.github.io/assets/img/og-card.png">
-<meta name="twitter:image:alt" content="Work — projects by Oliver">
+<meta name="twitter:image:alt" content="Work — a public desktop tool, this site, and engineering practice">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -29,7 +29,7 @@
   "@id": "https://oliver804.github.io/projects/#collection",
   "url": "https://oliver804.github.io/projects/",
   "name": "Work",
-  "description": "Two public repositories by Oliver: Local Route Launcher, a native macOS and Windows launcher that scopes an HTTP proxy to a single app launch, and the source of this site.",
+  "description": "Local Route Launcher, a native macOS and Windows launcher that gives one app launch its own HTTP proxy; the source of this site; and the engineering areas Oliver works in professionally.",
   "inLanguage": "en",
   "isPartOf": {
     "@id": "https://oliver804.github.io/#website"
@@ -96,12 +96,17 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   <div class="page-head">
     <div class="wrap">
       <h1>Work</h1>
-      <p class="lede">Two repositories, both maintained by hand. Each one starts from a specific annoyance rather than a technology, and neither is a demo.</p>
+      <p class="lede">One application you can download, one repository of the site you are reading, and the engineering I do for a living. They are kept apart here, because they are not the same kind of evidence.</p>
     </div>
   </div>
 
-  <section class="sec" id="repositories">
+  <section class="sec" id="public">
     <div class="wrap">
+      <div class="sec-head">
+        <h2>Public projects</h2>
+        <p class="sec-note">Two repositories, both MIT</p>
+      </div>
+
       <ol class="work">
 
         <li class="work-item">
@@ -112,26 +117,26 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             </div>
             <p class="work-facts">v1.2.0 · macOS 13+ · Windows 10/11 · SwiftUI + C# · MIT · released 19 Oct 2026</p>
             <div class="work-copy">
-              <p>A native launcher that gives a compatible ChatGPT desktop app its own HTTP proxy — without turning on TUN, changing the system proxy, or touching DNS. Settings belong to one process tree instead of the machine, and the interface says so.</p>
+              <p>Starts a compatible ChatGPT desktop app with your own HTTP proxy, for that launch only — no TUN device, no change to the system proxy or DNS. Settings belong to one process tree instead of the machine, and the interface says so.</p>
               <p>The interesting part was not the feature. It was the diagnostics, the second platform and the packaging: three checks that each state what they did not establish, a Windows edition that shares behaviour but not code, and a release that refuses to publish until both builds pass.</p>
             </div>
             <p class="work-links">
-              <a href="/projects/local-route-launcher/">Project notes and screenshots</a>
+              <a href="/projects/local-route-launcher/">Project page and downloads</a>
               <a class="is-muted ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher">Source</a>
               <a class="is-muted ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher/releases/tag/v1.2.0">Download 1.2.0</a>
             </p>
           </div>
         </li>
 
-        <li class="work-item">
+        <li class="work-item work-item--compact">
           <div class="work-num">02</div>
           <div class="work-main">
             <div class="work-top">
-              <h2 class="work-name"><a href="/about/#colophon">This site</a></h2>
+              <h2 class="work-name"><a href="/about/#colophon">Oliver’s Lab — this site</a></h2>
             </div>
             <p class="work-facts">2026 · HTML · CSS · no build step · GitHub Pages</p>
             <div class="work-copy">
-              <p>Hand-written HTML and one stylesheet, with a self-hosted typeface subset. No framework and no build step. The constraint is the point: a site that has to be editable by hand in five years cannot depend on a toolchain that will not exist in five years.</p>
+              <p>Hand-written HTML and one stylesheet, with a self-hosted typeface subset and no framework. It is here as a public example of the smaller end of the same habit: keep the system small enough that it can be explained, and let the explanation be checkable.</p>
             </div>
             <p class="work-links">
               <a href="/about/#colophon">How it is built</a>
@@ -144,6 +149,42 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     </div>
   </section>
 
+  <section class="sec" id="experience">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Engineering experience</h2>
+        <p class="sec-note">Practice, not portfolio</p>
+      </div>
+      <div class="prose">
+        <p>These are the areas I have worked in professionally. They are described as practice rather than as projects, because the code is not mine to publish: no employer, client, internal system or dataset is named here, and nothing below is presented as open source.</p>
+        <p>What can be said honestly is the shape of the problem, the part I owned, and what I would expect to be held responsible for afterwards.</p>
+      </div>
+
+      <dl class="caps">
+        <div>
+          <dt>Backend &amp; microservices</dt>
+          <dd>Java and Spring Boot services, the contracts between them, and the failure paths that only appear once two services disagree about what a field means. A lot of that work is integration where the other side of the interface is someone else’s and cannot be changed.</dd>
+        </div>
+        <div>
+          <dt>Data engineering &amp; platforms</dt>
+          <dd>Collection, processing and quality checks, plus the modelling that keeps a number explainable months after it was produced. The pipelines I care about are the ones that fail visibly rather than produce plausible wrong data.</dd>
+        </div>
+        <div>
+          <dt>Full-stack delivery</dt>
+          <dd>React interfaces built against an API I also own, so the awkward parts of the data model surface in the interface instead of in a ticket three weeks later.</dd>
+        </div>
+        <div>
+          <dt>AI-assisted engineering</dt>
+          <dd>Coding agents used for review-heavy work: reading an unfamiliar codebase, drafting a change, running the checks. The part that matters is what the review step has to become, not what the model can generate.</dd>
+        </div>
+        <div>
+          <dt>Cross-platform delivery</dt>
+          <dd>Desktop tools built natively for macOS and Windows — SwiftUI and AppKit on one side, C# and WPF on the other — including packaging, signing limits and the release checks that decide whether something is shippable.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
   <section class="sec" id="facts">
     <div class="wrap">
       <div class="sec-head">
@@ -153,28 +194,16 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       <dl class="spec">
         <div><dt>Repositories</dt><dd>2 public — the launcher and this site</dd></div>
         <div><dt>Latest release</dt><dd>v1.2.0 · 19 Oct 2026</dd></div>
+        <div><dt>Launcher runs on</dt><dd>macOS 13+ (Apple Silicon) · Windows 10 22H2 / 11 (x64)</dd></div>
         <div><dt>Languages</dt><dd>Swift · C# · HTML/CSS</dd></div>
-        <div><dt>Launcher license</dt><dd>MIT</dd></div>
-        <div><dt>Distribution</dt><dd>GitHub Releases — DMG, EXE, source ZIP, SHA-256 manifest</dd></div>
+        <div><dt>License</dt><dd>MIT, both repositories</dd></div>
+        <div><dt>Distribution</dt><dd>GitHub Releases — DMG, Windows setup, source ZIP, SHA256SUMS.txt</dd></div>
         <div><dt>Tests</dt><dd>Core, integration, UI and installer checks; run locally before publishing</dd></div>
-        <div><dt>Signing</dt><dd>Ad-hoc on macOS; the Windows installer is unsigned</dd></div>
+        <div><dt>Signing</dt><dd>Ad-hoc on macOS, not notarised; the Windows installer is unsigned</dd></div>
         <div><dt>Issues</dt><dd><a class="ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher/issues">github.com/oliver804/ChatGPT-Proxy-Launcher/issues</a></dd></div>
       </dl>
       <div class="prose small">
-        <p>No download counts, adoption numbers or user quotes appear on this page, because there is no way to verify them from here. Releases, commits, issues and the checks above are the only claims the site makes about the work, and each one links to where it can be inspected.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="in-progress">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>In progress</h2>
-        <p class="sec-note">Nothing to name yet</p>
-      </div>
-      <div class="prose small">
-        <p>Two things are being built and neither is far enough along to describe. What exists is reading, prototypes and notes; some of it will reach this page, some of it will stay in a folder.</p>
-        <p>This section stays empty on purpose. A project list that grows to look fuller than the work is the fastest way to make the whole site untrustworthy.</p>
+        <p>No download counts, adoption numbers or testimonials appear on this page, because there is no way to verify them from here. Releases, commits, issues and the checks above are the only claims the site makes about the work, and each one can be inspected.</p>
       </div>
     </div>
   </section>

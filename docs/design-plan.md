@@ -350,3 +350,63 @@ third-party requests"；现在这句话不存在了，也没有换成相反的�
 - **合规**：GA4 与 Clarity 默认首访即写 cookie，欧盟/英国访客严格来说需先同意。本站无同意
   横幅——因为横幅本身要 JS 与存储，与「内容不依赖脚本」相抵。这一项是留给站主的待决点，
   不是已解决项。
+
+---
+
+## 13. 内容与信息架构（第五轮）：把「能力」和「作品」分开
+
+用户要求在不改视觉、不改架构的前提下提升内容的专业度与长期价值，并明确了一条边界：**职业经验不能伪装成个人开源项目**。
+
+### 13.1 诊断
+
+旧版的问题不是文案质量，而是**缺少一层结构**：
+
+- 首页与项目页都在讲同一个项目 + 本站，访客看到的"工作面"只有一个软件，看不到后端与数据平台的能力。
+- 职业经验无处安放，只能挤在 About 的抽象段落里（"unglamorous middle of software"），既不可验证也不具体。
+- 项目页有 "In progress — Nothing to name yet" 一整段，属于防御性说明，占了版面却不提供信息。
+- 项目详情首屏只有"Download 1.2.0"一个链接，指向 release 页而不是安装包；普通用户要多点一次，且看不到"软件需要你自备代理"。
+
+### 13.2 结构变化
+
+| | 旧 | 新 |
+| --- | --- | --- |
+| 首页 | 开场 → Work（两条等大）→ Notes | 开场（含一行技术栈）→ Work（软件条目 + 本站紧凑条目）→ Notes → 联系 |
+| 项目页 | Public / Facts / In progress | Public projects / **Engineering experience** / What is public, exactly |
+| About | 6 段，含"为什么这页很少更新" | 定位 → 做什么 → 怎么工作 → AI → **Working together** → 联系 → Colophon（一段） |
+| Notes | 列表 + "About this page"（更新频率） | 列表（标题、日期、摘要、RSS） |
+| 项目详情 | 首屏 1 个下载入口，正文即设计随笔 | 首屏双平台直链 → 数据表 → 图 → **Scope（做什么/不做什么）** → Install → 签名限制 → **Questions** → 设计随笔（降为 h3）→ 笔记 |
+
+优先级靠排版而不是靠声明：软件名仍是全站最大字号；本站条目用 `work-item--compact` 降到 1.34rem，并且只留一句话。
+
+### 13.3 关于「职业经验」这一节
+
+这是本轮唯一的**新增类别**，也是最容易出事的地方。写法上的约束：
+
+- 只描述问题的形状、我承担的部分、以及事后愿意被追问的东西。
+- 不写雇主、客户、内部系统、数据集、团队规模、百分比。
+- 开头明写 "described as practice rather than as projects, because the code is not mine to publish"，把"为什么这里没有链接"放在读者产生疑问之前。
+
+五条：Backend & microservices / Data engineering & platforms / Full-stack delivery / AI-assisted engineering / Cross-platform delivery。
+
+### 13.4 顺手修掉的事实问题
+
+- 补上 **Intel Mac 与 Windows ARM64 不在支持范围**——仓库 README 明写，站点之前没写。这是最容易让用户白下载的一条。
+- 明确写 "It does not provide a proxy" 与 "does not change the system proxy, DNS or routing"，放在首屏 lede 和 Scope 两处。
+- 安装包大小保持十进制 MB（2.1 MB / 53.8 MB）；GitHub 显示的 2.02/51.28 是 MiB，不要混用，README 里加了说明。
+- 校验文件确认为 `SHA256SUMS.txt`（release 的第 4 个资产，之前只写了"sources ZIP"）。
+- 下载链接改为直链资产，release 页作为 "All files and checksums" 保留。
+
+### 13.5 新增的三个样式模式
+
+都复用现有的 1px 分隔线与网格，没有新颜色、没有圆角、没有阴影：
+
+- `.caps` —— 左 serif 标签、右 sans 说明（`/projects/#experience`），窄屏自动堆叠。
+- `.faq` —— 上问题下答案（项目页 Questions），与 `.spec` 同一套线。
+- `.work-item--compact` —— 同一作品条目的缩小版。
+
+### 13.6 明确没做
+
+- 没有给 Notes 加分类：四篇同属一个项目，分类只会制造"结构感"。
+- 没有加 TL;DR / 检查清单：四篇正文本身已经是"结论先行"，再加一层摘要会重复。
+- 没有新增页面、没有改 URL、没有改部署方式、没有引入框架或构建步骤。
+- 没有编造第二个公开项目；项目页现在只有两条，且都真实存在。

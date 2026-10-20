@@ -9,13 +9,27 @@ Live at <https://oliver804.github.io/>
 ## What this site is
 
 A work record, not a blog. The home page is an index of things that shipped —
-two public repositories, each with what it does, what it costs and where to get
-it — followed by a short list of notes. There is no archive, no schedule and no
-"latest" rail, because the site is updated a few times a year and should still
-look current six months later.
+one downloadable application, one repository of this site — followed by a short
+list of notes. There is no archive, no schedule and no "latest" rail, because
+the site is updated a few times a year and should still look current six months
+later.
 
 The reading order is deliberate: **work first, notes second, person third.**
 Page titles, section order and type sizes all follow that order.
+
+`/projects/` holds three different kinds of claim, and keeps them physically
+apart:
+
+| Section | What it is | Evidence |
+| --- | --- | --- |
+| Public projects | code anyone can download or read | releases, source, checksums |
+| Engineering experience | paid work, described as practice | none published — no employer, client or dataset named |
+| What is public, exactly | a data table about the two repositories | each row checkable |
+
+The middle section is the one to be careful with. It may describe the shape of
+a problem and the part Oliver owned. It may not name an employer, a client, an
+internal system, a dataset, a team size or a percentage.
+
 
 ## Structure
 
@@ -84,14 +98,33 @@ attributed to a project; that is the whole metadata.
 ## Add a project
 
 1. Copy `projects/local-route-launcher/` to `projects/<slug>/`.
-2. Update the spec list, figures, links and page title.
+2. Update the spec list, figures, links, page title and JSON-LD.
 3. Add a `<li>` to `.work` in `projects/index.html` with the next number, then
    the same entry in `index.html`. Work is the only numbered list on the site,
-   and the numbers have to match across the two pages.
-4. Update the facts table on `projects/index.html` when the release, the
-   licence or the repository count changes, and the "two public repositories"
-   count in the home page section note.
+   and the numbers have to match across the two pages. Use
+   `work-item--compact` for anything that should not compete with the first.
+4. Update the facts table on `projects/index.html` (releases, platforms, licence,
+   repository count) and the section note on both pages.
 5. Add the project to the `ItemList` in the JSON-LD on both pages.
+
+## Release data
+
+Every version, date and file size on the site has to match the published
+release, and the only way to be sure is to read it from GitHub rather than from
+memory:
+
+```sh
+curl -s "https://github.com/oliver804/ChatGPT-Proxy-Launcher/releases/expanded_assets/v1.2.0" \
+  | grep -oE '(Local-[A-Za-z0-9.-]+|SHA256SUMS\.txt)'
+```
+
+Sizes on the launcher page are decimal megabytes, which is what the release
+page shows: the DMG is 2.1 MB and the Windows installer 53.8 MB as of 1.2.0.
+Do not convert them to MiB and do not round a 51.28 MiB file to "51 MB".
+
+Changing the version means editing it in five places: the `mono` line and the
+spec table on the project page, the two data lines on `/projects/` and `/`,
+the JSON-LD `softwareVersion`, and any download links in the page head.
 
 ## Analytics
 
@@ -128,7 +161,8 @@ else references them — no CSS, no markup, no sitemap entry.
 
 ## Design decisions
 
-Four patterns only, all defined in `assets/css/style.css`:
+Four patterns only, all defined in `assets/css/style.css`, plus two supporting
+rows that reuse the same grid:
 
 | Pattern | Used for |
 | --- | --- |
@@ -136,6 +170,11 @@ Four patterns only, all defined in `assets/css/style.css`:
 | `.spec` | two-column data tables (version, platforms, licence) |
 | `.fig` | a screenshot with a numbered caption (`Fig. 1`) |
 | `.notes` | one-line rows with a date on the right |
+| `.caps` | capability rows: label in serif, paragraph in sans (`/projects/#experience`) |
+| `.faq` | question in serif, answer in sans (launcher page) |
+
+`.work-item--compact` is the same record at a smaller size, used for the site's
+own repository so it does not compete with the application above it.
 
 Palette: paper `#f2f0e9`, ink `#17181a`, one annotation red `#9b3a25`. No
 radii, no shadows, no gradients, no animation beyond a 120 ms colour change.
