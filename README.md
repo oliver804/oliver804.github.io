@@ -107,6 +107,14 @@ attributed to a project; that is the whole metadata.
    repository count) and the section note on both pages.
 5. Add the project to the `ItemList` in the JSON-LD on both pages.
 
+If the project has its own site, link it as **Official site** — `is-muted` in a
+`.work-links` row, `ext` in the spec table — and point `softwareHelp` at its
+guide rather than at the README. Local Route Launcher's is
+`https://oliver804.github.io/ChatGPT-Proxy-Launcher/en/`: the language-neutral
+root is `…/ChatGPT-Proxy-Launcher/` and serves Simplified Chinese, so pages in
+English link to the `/en/` edition. Both carry reciprocal `hreflang` and a
+switcher, so either entry point reaches the other.
+
 ## Release data
 
 Every version, date and file size on the site has to match the published
