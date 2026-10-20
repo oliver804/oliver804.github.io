@@ -64,9 +64,9 @@
         <div class="rail"><b>02</b>Body</div>
         <article>
           <div class="article-body">
-<p>In the first version, the version number existed in four places: the bundle metadata, the download file name, the release notes, and my head. Three of those can disagree, and the fourth is the one that writes the other three.</p>
+<p>A version number looks like a label, so it gets typed wherever it is needed: into the bundle metadata, into the download file name, into the release notes, into the changelog. Four copies of one string, none of which checks the others. When they disagree — and eventually they do — the disagreement is discovered by someone downloading a file, not by the build.</p>
 
-<p>The fix was not a convention. It was making the version an input that everything else derives from, and making the build fail when it is malformed.</p>
+<p>The fix is not a convention. It is making the version an input that everything else derives from, and making the build fail when it is malformed.</p>
 
 <h2>One file, checked at the door</h2>
 
