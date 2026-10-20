@@ -106,3 +106,44 @@ python scripts/og-card.py     # writes assets/img/og-card.png
 
 Uses macOS system fonts, so it is an authoring tool rather than part of the
 build.
+
+## Search engines
+
+The site is registered with both engines, and four files carry that state. Do
+not delete them — each one is what keeps the property verified.
+
+| File | What it is | Remove it and |
+| --- | --- | --- |
+| `index.html` → `google-site-verification` | Search Console ownership token for `https://oliver804.github.io/` | the Google property drops to unverified |
+| `index.html` → `msvalidate.01` | Bing meta-tag route, kept alongside the file below | the fallback route stops working |
+| `BingSiteAuth.xml` | Bing's file route, the one that actually verified | the Bing property drops to unverified |
+| `<key>.txt` (`730d4866…`) | IndexNow key; the filename must equal its contents | IndexNow refuses submissions |
+
+Registration state as of 20 Oct 2026:
+
+- **Search Console** — property `https://oliver804.github.io/`, verified by meta
+  tag. `sitemap.xml` submitted; Google reported *Couldn't fetch* on the first two
+  attempts while the site and property were both minutes old. The file itself
+  returns `200` with `content-type: application/xml` and parses to 9 URLs for
+  both `curl` and a Googlebot user agent, so this is a queue state, not a
+  broken sitemap. Re-check the Sitemaps report after a day.
+- **Bing Webmaster Tools** — `oliver804.github.io/` verified via
+  `BingSiteAuth.xml`, sitemap accepted (`Processing`), IndexNow accepted the
+  nine URLs with `202`.
+
+### After publishing a new page
+
+1. Add it to `sitemap.xml`.
+2. Push the nine-or-more URLs to IndexNow — Bing and Yandex pick it up in
+   minutes instead of waiting for a crawl:
+
+```sh
+curl -s -X POST https://api.indexnow.org/indexnow \
+  -H 'Content-Type: application/json; charset=utf-8' \
+  -d '{"host":"oliver804.github.io","key":"'"$(cat 730d4866*.txt)"'",
+       "keyLocation":"https://oliver804.github.io/'"$(basename 730d4866*.txt)"'",
+       "urlList":["https://oliver804.github.io/writing/new-page/"]}'
+```
+
+3. In Search Console, run *URL Inspection* on the new URL and request indexing.
+   There is a daily quota, so only do it for pages that matter.
