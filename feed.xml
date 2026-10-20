@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Oliver’s Lab — notes</title>
+    <link>https://oliver804.github.io/notes/</link>
+    <description>Working notes on launch paths, failure modes, diagnostics, packaging, and the review step in AI-assisted development.</description>
+    <language>en</language>
+    <lastBuildDate>Tue, 20 Oct 2026 09:00:00 +0000</lastBuildDate>
+    <atom:link href="https://oliver804.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>Why the launcher drives the app instead of the system proxy</title>
+      <link>https://oliver804.github.io/notes/why-the-launcher-drives-the-app/</link>
+      <guid isPermaLink="true">https://oliver804.github.io/notes/why-the-launcher-drives-the-app/</guid>
+      <pubDate>Tue, 20 Oct 2026 09:00:00 +0000</pubDate>
+      <category>Design notes</category>
+      <description>A machine-wide proxy switch is one click and fails where you cannot see it. Scoping the same setting to a single process is more work to build and far easier to reason about — and it changes what a diagnostic is allowed to claim.</description>
+    </item>
+
+  </channel>
+</rss>

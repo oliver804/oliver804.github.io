@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why the launcher drives the app instead of the system proxy</title>
+<meta name="description" content="A machine-wide proxy switch is one click and fails where you cannot see it. Scoping the same setting to a single process is more work to build and far easier to reason about.">
+<link rel="canonical" href="https://oliver804.github.io/notes/why-the-launcher-drives-the-app/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#faf8f3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Oliver’s Lab">
+<meta property="og:title" content="Why the launcher drives the app instead of the system proxy">
+<meta property="og:description" content="On scoping a change as narrowly as the problem, and what a narrower scope costs.">
+<meta property="og:url" content="https://oliver804.github.io/notes/why-the-launcher-drives-the-app/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://oliver804.github.io/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — notes" href="/feed.xml">
+<link rel="preload" href="/assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="masthead">
+      <a class="brand" href="/"><span class="brand-name">Oliver’s Lab</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/projects/">Projects</a>
+        <a href="/notes/" aria-current="page">Notes</a>
+        <a href="/about/">About</a>
+        <a class="nav-ext" href="https://github.com/oliver804">GitHub</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <header class="article-head">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>01</b>Note</div>
+        <div>
+          <p class="meta meta--pine">Design notes</p>
+          <h1>Why the launcher drives the app instead of the system proxy</h1>
+          <p class="article-meta">
+            <span><time datetime="2026-10-20">20 October 2026</time></span>
+            <span>7 min read</span>
+            <span>Local Route Launcher</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="article">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>02</b>Body</div>
+        <article>
+          <div class="article-body">
+            <p>There are two usual ways to make one application use a proxy. You can change the machine, or you can intercept the machine. Both are a single switch, and both become difficult to explain the moment they fail.</p>
+
+            <h2>Two switches, both machine-wide</h2>
+            <p>A system HTTP proxy is the tidier option. Applications that read system settings pick it up automatically, which is most of the ones you care about. The cost is scope: every other application on the machine now goes through a path you configured for one of them. Local tools that expect a direct connection start behaving strangely, and the setting outlives the session that needed it.</p>
+            <p>A TUN interface is the more forceful option. It takes over routing below the application layer, so it works whether or not the application cooperates. The cost is observability. Nothing above that layer can say which requests used the tunnel, because the tunnel does not have an opinion about applications — it has an opinion about packets.</p>
+            <p>Neither design is a mistake. Both answer the question “how do I send traffic through a proxy?”. I had a smaller question.</p>
+
+            <h2>The smallest scope that answers the question</h2>
+            <p>What I actually wanted was: launch this one application, with this one setting, for this run. Chromium accepts a proxy server as a launch argument, and reads proxy environment variables for its child processes. Pass both at launch and the setting belongs to that process tree rather than to the machine.</p>
+            <p>That is a genuinely smaller change, and it stays smaller in ways that matter later. Nothing is written to system configuration, so there is nothing to clean up if the experiment ends badly. The setting does not survive the process tree it was created for. And because there is no global switch, there is no state where half the machine is routed and nobody remembers why.</p>
+            <blockquote>The scope of a change is not a detail of its implementation. It decides what you are able to say when something goes wrong.</blockquote>
+
+            <h2>A narrower scope moves the work, it does not delete it</h2>
+            <p>The first thing you lose is the launch path. Once settings are applied at launch, opening the application from the Dock or the Start menu quietly bypasses them. Users will do exactly that, because that is how they have always opened it. The only honest response is to say it in the interface, next to the buttons, rather than in a document nobody reads.</p>
+            <p>The second thing you lose is coverage. A launch argument is a request, not a policy. Child processes that ignore environment variables will not follow it, and traffic that does not go through Chromium’s network stack — voice, WebRTC, UDP — may behave differently or not at all. A tool that promises “all traffic” would be lying. This one promises a launch.</p>
+            <p>The third thing you take on is maintenance against someone else’s release cycle. The behaviour depends on how a specific desktop application is built, and that application updates on its own schedule. This is not a stable contract, and designing as if it were would make the next Electron update look like a bug in the launcher.</p>
+
+            <h2>Proof has a resolution</h2>
+            <p>The part I did not expect to matter as much as it did: a diagnostic is only as useful as its resolution. “Connected” is a low-resolution answer. It collapses several different facts — a tunnel opened, a TLS handshake completed, an application process carried the right arguments, sockets were observed — into one word, and that word is wrong for at least one of them some of the time.</p>
+            <p>So the checks are reported separately, and each one states what it did not establish:</p>
+            <ul>
+              <li>A tunnel reached a TLS endpoint through the proxy. That is not the same as a working session; an HTTP 403 at that stage is still a response.</li>
+              <li>The running main process carries proxy arguments matching the saved settings. This is the one check that answers the question directly, and it is also the one that can be true while traffic still goes elsewhere.</li>
+              <li>A TCP snapshot showed connections from the process family to the proxy. A snapshot is one moment. Its absence proves nothing, and a hostname cannot be matched against a numeric address inside it.</li>
+            </ul>
+            <p>Putting the limitation beside the tick is a design decision, not legal caution. A green mark that overstates its evidence ends the investigation at exactly the point where the investigation should start.</p>
+
+            <h2>Three questions I use to judge a scope</h2>
+            <p>This is the reusable part, and it applies well beyond proxies.</p>
+            <ol>
+              <li><strong>Does the change touch anything that is not part of the question?</strong> If the answer is yes, the extra reach will need its own explanation later, and nobody will remember to give it.</li>
+              <li><strong>When it fails, can I tell which piece failed?</strong> A change that fails as a single undifferentiated symptom is a change you cannot debug, only reinstall.</li>
+              <li><strong>Can it be undone without a reboot, a reinstall, or a support conversation?</strong> Reversibility is what makes it safe to try things in the first place.</li>
+            </ol>
+            <p>By those three, scoping the proxy to a launch is the right call here. It touches one process, it fails in separable pieces, and quitting the application undoes it.</p>
+
+            <h2>Narrow is not automatically better</h2>
+            <p>It would be easy to turn this into a rule and be wrong. Narrower scope is not a virtue on its own — it moves work onto the person using the tool, and sometimes onto the person maintaining it. The system proxy exists because most of the time “make everything use the proxy” is the actual requirement.</p>
+            <p>What narrow scope buys is explainability. It lets the tool say what it did, in a sentence, without hedging. For a utility whose only job is to answer a question about a connection, that turned out to be the whole product.</p>
+
+            <hr>
+            <p><small>Written from the project’s design notes and documentation. No usage data, accounts or metrics appear on this page; the application collects none.</small></p>
+          </div>
+
+          <div class="article-foot">
+            <a href="/notes/">← All notes</a>
+            <a class="ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher">Project source</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-id">A working record of projects built and lessons taken.</p>
+      <nav class="foot-nav" aria-label="Footer">
+        <a class="ext" href="https://github.com/oliver804">GitHub</a>
+        <a href="mailto:oliver804x@gmail.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+    <p class="colophon">Hand-written HTML and CSS. No analytics, no cookies, no build step. Typeface: Newsreader. © 2026 Oliver</p>
+  </div>
+</footer>
+
+</body>
+</html>

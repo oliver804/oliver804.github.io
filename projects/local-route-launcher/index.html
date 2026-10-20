@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local Route Launcher — a proxy scoped to one app launch | Oliver’s Lab</title>
+<meta name="description" content="How Local Route Launcher passes an HTTP proxy to a single ChatGPT desktop launch instead of changing the system proxy, and why its diagnostics state their own limits.">
+<link rel="canonical" href="https://oliver804.github.io/projects/local-route-launcher/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#faf8f3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Oliver’s Lab">
+<meta property="og:title" content="Local Route Launcher — a proxy scoped to one app launch">
+<meta property="og:description" content="A native macOS and Windows launcher that scopes an HTTP proxy to a single process, and reports what it can and cannot prove.">
+<meta property="og:url" content="https://oliver804.github.io/projects/local-route-launcher/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://oliver804.github.io/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — notes" href="/feed.xml">
+<link rel="preload" href="/assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="masthead">
+      <a class="brand" href="/"><span class="brand-name">Oliver’s Lab</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/projects/" aria-current="page">Projects</a>
+        <a href="/notes/">Notes</a>
+        <a href="/about/">About</a>
+        <a class="nav-ext" href="https://github.com/oliver804">GitHub</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="page-head">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>02</b>Project</div>
+        <div>
+          <p class="meta meta--pine meta--case">Open source · MIT · v1.2.0 · 19 October 2026</p>
+          <h1>Local Route Launcher</h1>
+          <p class="lede">A native macOS and Windows launcher that gives a compatible ChatGPT desktop app its own HTTP proxy — without turning on TUN, changing the system proxy, or touching DNS.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section section--ruled">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>03</b>Specification</div>
+        <div>
+          <dl class="spec">
+            <div><dt>Version</dt><dd>1.2.0 — 19 October 2026</dd></div>
+            <div><dt>Platforms</dt><dd>macOS 13+ (Apple Silicon) · Windows 10 22H2 / 11 (x64)</dd></div>
+            <div><dt>Built with</dt><dd>SwiftUI + AppKit · C# / WPF (.NET)</dd></div>
+            <div><dt>Install size</dt><dd>2.1 MB DMG · 53.8 MB Windows installer (runtime included)</dd></div>
+            <div><dt>License</dt><dd>MIT</dd></div>
+            <div><dt>Signing</dt><dd>Ad-hoc on macOS; Windows installer unsigned</dd></div>
+            <div><dt>Source</dt><dd><a class="ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher">github.com/oliver804/ChatGPT-Proxy-Launcher</a></dd></div>
+            <div><dt>Site</dt><dd><a class="ext" href="https://oliver804.github.io/ChatGPT-Proxy-Launcher/en/">oliver804.github.io/ChatGPT-Proxy-Launcher/en</a></dd></div>
+          </dl>
+
+          <div class="figpair">
+            <figure class="fig">
+              <img src="/assets/img/launcher-macos-light.png" width="891" height="990" alt="The macOS build in light appearance: saved proxy address 127.0.0.1 port 7890, start and stop controls, and three connection checks reporting tunnel reachability, launch arguments and observed connections." decoding="async">
+              <figcaption><span class="fig-n">Fig. 1</span>macOS build, light appearance, sample diagnostic data.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="/assets/img/launcher-windows-light.png" width="404" height="554" alt="The Windows build in light theme: proxy address and port fields, save and app selection buttons, and three connection checks marked as not checked." loading="lazy" decoding="async">
+              <figcaption><span class="fig-n">Fig. 2</span>Windows build, light theme, default settings.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ruled">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>04</b>Case notes</div>
+        <div>
+          <div class="case">
+            <h2>The problem</h2>
+            <p>A desktop application that needs a proxy offers a choice that looks trivial and is not. You can set an HTTP proxy for the whole system, or you can take over routing with a TUN interface. Both are one switch. Neither tells you afterwards which requests actually used it.</p>
+            <p>System settings apply to every application on the machine, so unrelated tools begin failing through a path you configured for one of them. TUN reaches lower still: it does not need the app to cooperate, and in exchange nothing above it can observe what happened. When a request fails you are left with a switch that is either on or off, and no way to ask a narrower question.</p>
+
+            <h2>The narrower question</h2>
+            <p>The question I actually had was smaller: how do I launch this one application with this one setting, for this one run? Chromium accepts <code>--proxy-server</code> at launch and honours <code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code> and <code>ALL_PROXY</code> for its child processes. Passing those at launch scopes the setting to that process tree instead of the machine.</p>
+            <p>Two consequences follow immediately, and both come from choosing the smaller door. Localhost stays off the proxy, because local tools should keep working while the app is routed. And an argument is a request, not a policy — the application is free to ignore it, and some of its children do.</p>
+
+            <h2>What the narrow door costs</h2>
+            <ul>
+              <li><strong>The launch path becomes yours.</strong> Settings apply at launch; opening the app from the Dock or the Start menu will not carry them. The interface says so instead of hiding it.</li>
+              <li><strong>Environment variables do not bind every child.</strong> Voice, WebRTC and UDP traffic may behave differently, and QUIC is disabled so that requests stay visible to the proxy.</li>
+              <li><strong>The target can move.</strong> An Electron update can change the behaviour this depends on, and no contract says otherwise.</li>
+              <li><strong>Two platforms, two launch mechanisms.</strong> Chromium behaves the same on both; Launch Services and Windows process creation do not.</li>
+            </ul>
+
+            <h2>Diagnostics that do not overclaim</h2>
+            <p>A check is only useful if the failure it reports is real. The app runs three, and none of them is allowed to say more than it saw.</p>
+            <ul>
+              <li><strong>Proxy connectivity</strong> — a CONNECT tunnel was established and a TLS response came back through the configured proxy. An HTTP 403 at this stage is a response, not proof that a chat session works.</li>
+              <li><strong>Launch arguments</strong> — the running main process carries proxy arguments matching the saved settings. This is the only check that answers the question directly.</li>
+              <li><strong>Observed connections</strong> — a TCP snapshot at one moment. The absence of a connection is not proof of direct access, and a hostname cannot be matched against a numeric address in the snapshot.</li>
+            </ul>
+            <p>Each limitation is printed beside the tick, not in a footnote. A diagnostic that says “connected” when it means “something responded” is worse than no diagnostic at all, because it ends the investigation.</p>
+
+            <h2>The other half is packaging</h2>
+            <p>Shipping was the part I underestimated. The build takes its version from a single file, maps compiler paths so local directory names never end up inside the binary, and will not publish a release until both platform builds have passed. The Windows installer is per-user, bundles its own runtime, registers no service and does not add itself to startup.</p>
+            <p>Neither build carries a paid signing certificate. macOS uses an ad-hoc signature, Windows ships unsigned, and both facts sit on the download page next to the checksums. That is a real limitation rather than a badge: the download can be blocked by the operating system, and the honest response is to document verification instead of telling people to switch security features off.</p>
+
+            <h2>What actually changed between releases</h2>
+            <p>From 1.0.0 to 1.2.0, the changes that mattered were not features. 1.1.0 renamed the application to Local Route Launcher while keeping the repository URL and saved preferences compatible, and made language switching immediate and persistent. 1.2.0 added the Windows edition and made release publication wait for both platforms. None of that is what users ask for, and all of it decides whether the tool feels finished.</p>
+
+            <p>The tool is deliberately small. That is the only reason it can be explained on one page — and the only reason its limits can be listed without a disclaimer section.</p>
+          </div>
+
+          <div class="actions actions--spaced">
+            <a class="ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher">Source</a>
+            <a class="ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher/releases/tag/v1.2.0">Download 1.2.0</a>
+            <a class="ext" href="https://oliver804.github.io/ChatGPT-Proxy-Launcher/en/">Project site</a>
+            <a class="is-muted" href="/projects/">All projects</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-id">A working record of projects built and lessons taken.</p>
+      <nav class="foot-nav" aria-label="Footer">
+        <a class="ext" href="https://github.com/oliver804">GitHub</a>
+        <a href="mailto:oliver804x@gmail.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="/notes/">Notes</a>
+      </nav>
+    </div>
+    <p class="colophon">Hand-written HTML and CSS. No analytics, no cookies, no build step. Typeface: Newsreader. © 2026 Oliver</p>
+  </div>
+</footer>
+
+</body>
+</html>

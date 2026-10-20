@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oliver’s Lab — software engineering, data, AI-assisted development</title>
+<meta name="description" content="Software engineer working on Java services, data platforms and front-end code. Local Route Launcher is open source; notes on software that stays maintainable.">
+<link rel="canonical" href="https://oliver804.github.io/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#faf8f3">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Oliver’s Lab">
+<meta property="og:title" content="Oliver’s Lab — software that holds up after launch">
+<meta property="og:description" content="Software engineer working on Java services, data platforms and front-end code. One open-source project, and notes on building tools that stay maintainable.">
+<meta property="og:url" content="https://oliver804.github.io/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://oliver804.github.io/assets/img/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — notes" href="/feed.xml">
+<link rel="preload" href="/assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="masthead">
+      <a class="brand" href="/"><span class="brand-name">Oliver’s Lab</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/projects/">Projects</a>
+        <a href="/notes/">Notes</a>
+        <a href="/about/">About</a>
+        <a class="nav-ext" href="https://github.com/oliver804">GitHub</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>01</b>Index</div>
+        <div>
+          <p class="meta eyebrow">Software engineering · Data · AI-assisted development</p>
+          <h1>Software that holds up<br><em>after launch</em>.</h1>
+          <p class="hero-deck">I’m Oliver. I work on Java services, data platforms and front-end code — the parts that have to keep running after release: data that must stay correct, systems someone else has to operate, small tools that remove a repeated annoyance. One of them is open source, and it is documented below.</p>
+          <div class="hero-links">
+            <a class="link" href="#work">Selected work</a>
+            <a class="link" href="/notes/">Lab notes</a>
+            <a class="link ext" href="https://github.com/oliver804">GitHub</a>
+          </div>
+          <p class="status">
+            <span><span class="dot">●</span> Now building: Local Route Launcher 1.2.0</span>
+            <span>Page updated 20 Oct 2026</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ruled" id="work">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>02</b>Selected work</div>
+        <div>
+          <div class="section-head">
+            <h2>One thing, finished properly</h2>
+            <p class="meta">Open source · MIT</p>
+          </div>
+
+          <article class="project">
+            <p class="meta meta--pine meta--case">macOS 13+ · Windows 10/11 · v1.2.0</p>
+            <h3 class="project-title">Local Route Launcher</h3>
+            <p class="project-lede">A native macOS and Windows launcher that gives a compatible ChatGPT desktop app its own HTTP proxy — without turning on TUN, changing the system proxy, or touching DNS.</p>
+
+            <div class="prose project-facts">
+              <p>Most proxy setups reconfigure the machine. This one reconfigures a single launch. It saves a host and port, starts the app with Chromium’s proxy arguments and the matching <code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code> and <code>ALL_PROXY</code> variables, keeps localhost off the proxy so local tools keep working, and asks the app to close rather than killing it.</p>
+              <p>That scope is narrower on purpose. A narrower scope is the only reason the result is predictable enough to explain in a report.</p>
+            </div>
+
+            <ul class="plain">
+              <li><strong>Settings that belong to one process.</strong> Nothing is written to system proxy or DNS. Quit the app, open it through the launcher, and the setting travels with that launch only.</li>
+              <li><strong>Checks that say what they measured.</strong> Proxy tunnel reachability, the arguments the running process actually carries, and a TCP connection snapshot. The report states that a snapshot is not proof every child process follows the proxy.</li>
+              <li><strong>Menu bar and system tray.</strong> Start, stop and read status without keeping a window open.</li>
+              <li><strong>Two languages, two appearances.</strong> English and Simplified Chinese switch instantly and are remembered; light and dark are built in.</li>
+            </ul>
+
+            <dl class="spec">
+              <div><dt>Version</dt><dd>1.2.0 — 19 October 2026</dd></div>
+              <div><dt>Platforms</dt><dd>macOS 13+ (Apple Silicon) · Windows 10 22H2 / 11 (x64)</dd></div>
+              <div><dt>Built with</dt><dd>SwiftUI + AppKit · C# / WPF (.NET)</dd></div>
+              <div><dt>License</dt><dd>MIT</dd></div>
+              <div><dt>Signing</dt><dd>Ad-hoc on macOS; Windows installer unsigned</dd></div>
+              <div><dt>Source</dt><dd><a class="ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher">github.com/oliver804/ChatGPT-Proxy-Launcher</a></dd></div>
+              <div><dt>Site</dt><dd><a class="ext" href="https://oliver804.github.io/ChatGPT-Proxy-Launcher/en/">oliver804.github.io/ChatGPT-Proxy-Launcher/en</a></dd></div>
+            </dl>
+
+            <figure class="fig fig--lead">
+              <img src="/assets/img/launcher-macos.png" width="990" height="1100" alt="The macOS build in dark appearance: a saved proxy address, start and stop controls, and three connection checks reporting tunnel reachability, launch arguments and observed connections." decoding="async" fetchpriority="high">
+              <figcaption><span class="fig-n">Fig. 1</span>macOS build, dark appearance, rendered with sample diagnostic data — no account content. The Windows build is shown on the project page.</figcaption>
+            </figure>
+
+            <div class="actions">
+              <a href="/projects/local-route-launcher/">Read the project notes</a>
+              <a class="is-muted ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher">Source</a>
+              <a class="is-muted ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher/releases/tag/v1.2.0">Download 1.2.0</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ruled" id="focus">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>03</b>Focus</div>
+        <div>
+          <div class="section-head">
+            <h2>What I’m working through</h2>
+            <p class="meta">Open questions, not a stack list</p>
+          </div>
+          <dl class="rows">
+            <div>
+              <dt>AI-assisted development</dt>
+              <dd>Using coding agents on work that has to be reviewed, not on demos: where they save hours, where they quietly cost more, and what a workflow that stays auditable actually looks like.</dd>
+            </div>
+            <div>
+              <dt>Developer tooling</dt>
+              <dd>Small utilities that delete one repeated annoyance at a time. The launcher started as one of these, and the interesting part was the packaging, not the feature list.</dd>
+            </div>
+            <div>
+              <dt>Data engineering</dt>
+              <dd>Pipelines, modelling, and the unglamorous half — keeping numbers correct after the source, the schema and the people around them have all changed.</dd>
+            </div>
+            <div>
+              <dt>Small independent products</dt>
+              <dd>Finishing end to end: interface, packaging, release notes, documentation, and explaining honestly what the thing cannot do.</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ruled" id="notes">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>04</b>Lab notes</div>
+        <div>
+          <div class="section-head">
+            <h2>Written down while building</h2>
+            <p class="meta"><a class="link" href="/notes/">All notes</a></p>
+          </div>
+          <div class="entries">
+            <a class="entry" href="/notes/why-the-launcher-drives-the-app/">
+              <span class="entry-label"><time datetime="2026-10-20">20 Oct 2026</time><br>7 min · Design notes</span>
+              <span class="entry-title">Why the launcher drives the app instead of the system proxy</span>
+              <span class="entry-dek">A machine-wide switch is one click and fails where you cannot see it. Scoping the same setting to a single process is more work to build and far easier to reason about.</span>
+            </a>
+          </div>
+          <p class="entry-next">Next: packaging the same small tool twice — SwiftUI and WPF — and what using a coding agent on a real release changed about the review step.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-id">A working record of projects built and lessons taken.</p>
+      <nav class="foot-nav" aria-label="Footer">
+        <a class="ext" href="https://github.com/oliver804">GitHub</a>
+        <a href="mailto:oliver804x@gmail.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+    <p class="colophon">Hand-written HTML and CSS. No analytics, no cookies, no build step. Typeface: Newsreader. © 2026 Oliver</p>
+  </div>
+</footer>
+
+</body>
+</html>
