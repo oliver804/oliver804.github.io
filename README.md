@@ -108,14 +108,23 @@ Both set first-party cookies (`_ga`, `_ga_472VKF5Y95`, `_clck`, `_clsk`). There
 is no advertising or remarketing configuration, and no other third-party script
 on the site.
 
+**The tags are not described anywhere on the public site.** That is a deliberate
+decision, not an oversight: they measure traffic, they are not content, and a
+page explaining them turned the colophon into a blog post about the colophon. What
+the pages still say about the build — no framework, no build step, no script
+needed to render — remains true and checkable.
+
+The trade-off is that a visitor cannot find out from the site that it is
+measured. If that ever needs to change, the smallest honest form is one line in
+the footer colophon, not a section.
+
 Adding a page means adding the same block: copy everything between the
 `<!-- Analytics: … -->` comment and the closing `</script>` of the Clarity tag,
 and put it immediately before `</head>`. A page without it is the only way this
 setup silently under-reports.
 
-To remove the analytics entirely, delete that block from the ten files and the
-`Analytics` section from `about/index.html`. Nothing else references them — no
-CSS, no markup, no sitemap entry.
+To remove the analytics entirely, delete that block from the ten files. Nothing
+else references them — no CSS, no markup, no sitemap entry.
 
 ## Design decisions
 

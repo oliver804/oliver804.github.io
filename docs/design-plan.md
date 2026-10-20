@@ -306,38 +306,47 @@
 
 ---
 
-## 12. 统计代码（第四轮）：一次被记录的倒退
+## 12. 统计代码（第四轮）：装上去，但不写进内容
 
-要求：装上 Google Analytics 4 与 Microsoft Clarity。
+要求：装上 Google Analytics 4 与 Microsoft Clarity；随后要求：**这两段是流量分析工具，
+不属于内容更新，把相关内容从站内撤掉。**
 
-这与本站此前公开声明的一条原则直接冲突——`about` 页原本写着 "no JavaScript,
-no analytics, no cookies, and no third-party requests"。站点本身的价值恰恰建立在
-"这些句子都可验证" 上，所以处理方式不是把那句话悄悄删掉。
+### 12.1 装法
 
-### 12.1 做法
+两段代码原样放在 10 个页面的 `</head>` 之前，`async`，不阻塞渲染。GA4 `G-472VKF5Y95`，
+Clarity `z0l2ymgxa3`。
 
-- 两段代码原样放在 10 个页面的 `</head>` 之前，`async` 加载，不阻塞渲染。
-- 三个此前声明"无统计"的位置全部改写，不是删除：
-  - 首页 "This site" 条目
-  - `/projects/` 的 "This site" 条目
-  - `about` 的 Colophon 段与每页页脚的 colophon 行
-- 页脚图签的 `Build` 值从 "None — hand-written, no JavaScript" 改为
-  "None — hand-written, no framework"（仍为真）。
-- `about` 新增 `#analytics` 一节，写清：跑的是哪两个、由谁提供、会记录什么、
-  以及为什么这一页此前说过相反的话。`head` 里的注释指向该锚点。
+### 12.2 站内一个字都不再提
 
-### 12.2 验证
+第一版做法是把统计写成 `about#analytics` 一节，并把四处旧声明改写成「除了两个统计标签之外……」。
+这个做法虽然诚实，但把版面变成了**关于版面本身的文章**——正是这个站点从一开始要避免的东西。
+第二版全部撤掉：
 
-本地 headless 实测：`gtag/js` 200、GA4 `g/collect` 204、`clarity.ms/tag` 200、
-`scripts.clarity.ms/clarity.js` 200；`window.dataLayer` 4 条、`gtag` 与 `clarity`
-均为函数；cookie `_ga`、`_ga_472VKF5Y95`、`_clck` 均已写入；无页面报错。
+| 位置 | 第一版 | 现在 |
+| --- | --- | --- |
+| `about` | 新增 `#analytics` 一整节 | 删除，页面回到 Colophon 收尾 |
+| 首页 This site 卡片 | 「Apart from two analytics tags…」 | 只写 no framework、no build step、内容不依赖脚本 |
+| `/projects/` This site 卡片 | 「the only JavaScript is two analytics tags…」 | 同上，不再提脚本 |
+| 每页页脚 colophon | 「Analytics: Google Analytics, Microsoft Clarity.」 | 「Typeface served from this domain.」 |
+| 页脚图签 `Build` | None — hand-written, no framework | 不变 |
 
-### 12.3 已知代价与未做的
+关键点：旧声明是**删除**，不是**反向替换**。原文写着 "no analytics, no cookies, no
+third-party requests"；现在这句话不存在了，也没有换成相反的话。不声明 ≠ 撒谎，
+但如果把旧句留着不删，那就是撒谎——所以删除本身是必须的，只是不需要补一段解释。
 
-- **性能**：第三方脚本约 150 KB，`async` 不阻塞首屏，但会进入 TBT。这是这次
-  改动的实测代价，不是猜测。
-- **合规**：GA4 与 Clarity 默认在首次访问即写 cookie，欧盟/英国访客需要先取得
-  同意。本站没有同意横幅。要么接受现状（个人站、低流量），要么加一个需要 JS
-  的横幅——后者与"页面不依赖脚本"的原则冲突。当前选择是前者，并且写在明处。
-- 未加 `preconnect`：多两个 DNS/TLS 握手换来的是几十毫秒，但会多两条第三方
-  连接，收益不稳定，先不加。
+保留的仍然全部为真：no framework、no build step、内容不依赖脚本即可阅读、字体自托管。
+
+### 12.3 验证
+
+本地与线上 headless 实测：`gtag/js` 200、GA4 `g/collect` 204、`clarity.ms/tag` 200、
+`scripts.clarity.ms/clarity.js` 200；`window.dataLayer` 4 条、`gtag` 与 `clarity` 均为函数；
+`_ga`、`_clck` 已写入；无页面报错。10 页 / 211 链接 0 断链、0 失效锚点、9 段 JSON-LD 可解析。
+
+### 12.4 已知代价
+
+- **性能**：约 150 KB 第三方脚本，`async` 不挡首屏但会进 TBT。
+- **可发现性**：访客从站内无法得知自己被统计。若将来必须披露，最小形式是页脚一行，
+  不是一节。
+- **合规**：GA4 与 Clarity 默认首访即写 cookie，欧盟/英国访客严格来说需先同意。本站无同意
+  横幅——因为横幅本身要 JS 与存储，与「内容不依赖脚本」相抵。这一项是留给站主的待决点，
+  不是已解决项。
