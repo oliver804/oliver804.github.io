@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Render the 1200x630 link-preview card (assets/img/og-card.png).
 
-Run only when the headline or the domain changes:
+Run only when the headline, the palette or the domain changes:
 
     python3 scripts/og-card.py
 
@@ -17,14 +17,14 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "img" / "og-card.png"
 
 W, H = 1200, 630
-PAPER = "#faf8f3"
-INK = "#191b16"
-INK_2 = "#5f6457"
-INK_3 = "#8a8f80"
-RULE = "#dad5c7"
+PAPER = "#f2f0e9"
+INK = "#17181a"
+INK_2 = "#4e5154"
+INK_3 = "#63666a"
+RULE = "#d5d1c3"
+MARK = "#9b3a25"
 
 SERIF = "/System/Library/Fonts/Supplemental/Charter.ttc"
-SERIF_ITALIC = "/System/Library/Fonts/Supplemental/Georgia Italic.ttf"
 MONO = "/System/Library/Fonts/Menlo.ttc"
 
 
@@ -32,49 +32,33 @@ def font(path: str, size: int, index: int = 0) -> ImageFont.FreeTypeFont:
     return ImageFont.truetype(path, size, index=index)
 
 
-def tracked(draw, xy, text, fnt, fill, tracking=0.0, anchor_right=None):
-    """Draw text with letter-spacing; returns the x cursor after the run."""
-    x, y = xy
-    for ch in text:
-        if anchor_right is not None and ch == text[0]:
-            pass
-        draw.text((x, y), ch, font=fnt, fill=fill)
-        x += draw.textlength(ch, font=fnt) + tracking
-    return x
-
-
 def main() -> None:
     img = Image.new("RGB", (W, H), PAPER)
     d = ImageDraw.Draw(img)
 
-    left = 140
-    right = W - 96
+    left = 100
+    right = W - 100
 
-    # notebook corner: one vertical margin rule, one baseline rule
-    d.line([(96, 88), (96, 520)], fill=RULE, width=1)
-    d.line([(left - 44, 520), (right, 520)], fill=RULE, width=1)
+    # drawing-sheet marks: one red margin line, one baseline rule
+    d.line([(56, 90), (56, 512)], fill=MARK, width=1)
+    d.line([(left, 512), (right, 512)], fill=RULE, width=1)
 
-    eyebrow = "SOFTWARE ENGINEERING · DATA · AI-ASSISTED DEVELOPMENT"
-    tracked(d, (left, 104), eyebrow, font(MONO, 15, 0), INK_3, tracking=2.0)
+    head = font(SERIF, 74, 0)
+    for i, line in enumerate(("I build small tools,", "then write down", "what they cost.")):
+        d.text((left, 150 + i * 88), line, font=head, fill=INK)
 
-    headline = font(SERIF, 76, 0)
-    italic = font(SERIF_ITALIC, 76)
-    d.text((left, 196), "Software that holds up", font=headline, fill=INK)
-
-    x = left
-    for text, fnt in (("after launch", italic), (".", headline)):
-        d.text((x, 292), text, font=fnt, fill=INK)
-        x += d.textlength(text, font=fnt)
-
-    d.text((left, 420), "One open-source project, and notes on building tools "
-                        "that stay maintainable.", font=font(SERIF, 26, 0), fill=INK_2)
-
-    d.text((left, 540), "Oliver’s Lab", font=font(SERIF, 24, 0), fill=INK)
-
+    d.text((left, 72), "Oliver’s Lab", font=font(SERIF, 24, 0), fill=INK)
     site = "oliver804.github.io"
-    site_font = font(MONO, 17, 0)
-    d.text((right - d.textlength(site, font=site_font), 546), site,
-           font=site_font, fill=INK_2)
+    site_font = font(MONO, 16, 0)
+    d.text((right - d.textlength(site, font=site_font), 76), site,
+           font=site_font, fill=INK_3)
+
+    d.text((left, 540), "Local Route Launcher 1.2.0 — macOS and Windows, MIT",
+           font=font(MONO, 17, 0), fill=INK_2)
+
+    year = "2026"
+    d.text((right - d.textlength(year, font=font(MONO, 17, 0)), 540), year,
+           font=font(MONO, 17, 0), fill=INK_2)
 
     img.save(OUT, optimize=True)
     print(f"wrote {OUT.relative_to(ROOT)}")

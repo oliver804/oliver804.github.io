@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>One behaviour, two builds</title>
+<title>One behaviour, two builds — Oliver’s Lab</title>
 <meta name="description" content="The Windows edition of Local Route Launcher is not a port. It is the same argument made twice, in two languages that agree about almost nothing except where a window goes.">
 <link rel="canonical" href="https://oliver804.github.io/writing/one-behaviour-two-builds/">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#faf8f3">
+<meta name="theme-color" content="#f2f0e9">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Oliver’s Lab">
 <meta property="og:title" content="One behaviour, two builds">
@@ -57,7 +57,7 @@
 }
 </script>
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — writing" href="/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — notes" href="/feed.xml">
 <link rel="preload" href="/assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
@@ -65,15 +65,15 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="site-header">
+<header class="site-head">
   <div class="wrap">
     <div class="masthead">
-      <a class="brand" href="/"><span class="brand-name">Oliver’s Lab</span></a>
-      <nav class="site-nav" aria-label="Primary">
-        <a href="/projects/">Projects</a>
-        <a href="/writing/" aria-current="page">Writing</a>
+      <a class="brand" href="/">Oliver’s Lab</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/projects/">Work</a>
+        <a href="/writing/" aria-current="page">Notes</a>
         <a href="/about/">About</a>
-        <a class="nav-ext" href="https://github.com/oliver804">GitHub</a>
+        <a href="https://github.com/oliver804">GitHub</a>
       </nav>
     </div>
   </div>
@@ -81,29 +81,17 @@
 
 <main id="main">
 
-  <header class="article-head">
-    <div class="wrap">
-      <div class="railrow">
-        <div class="rail"><b>01</b>Note</div>
-        <div>
-          <p class="meta meta--pine">Software engineering</p>
-          <h1>One behaviour, two builds</h1>
-          <p class="article-meta">
-            <span><time datetime="2026-10-20">20 October 2026</time></span>
-            <span>5 min read</span>
-            <span>Local Route Launcher</span>
-          </p>
-        </div>
+  <article>
+    <header class="article-head">
+      <div class="wrap">
+        <p class="kicker"><a href="/writing/">Notes</a> / Local Route Launcher</p>
+        <h1>One behaviour, two builds</h1>
+        <p class="article-meta"><span><time datetime="2026-10-20">20 October 2026</time></span></p>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <section class="article">
     <div class="wrap">
-      <div class="railrow">
-        <div class="rail"><b>02</b>Body</div>
-        <article>
-          <div class="article-body">
+      <div class="article-body">
 <p>The Windows edition of Local Route Launcher is not a port. It is the same argument made twice, in two languages that agree about almost nothing except where a window goes.</p>
 
 <p>Version 1.2.0 was the first release with both. Most of the work on the second one was not code. It was deciding which sentences both builds had to make true, then finding the places where they quietly stopped being true.</p>
@@ -174,34 +162,37 @@
 <p>Two implementations cost more than one. For a tool whose entire purpose is to touch as little of the machine as possible, it was also the only way to keep it small.</p>
           </div>
 
-          <aside class="article-next">
-            <p class="meta">Read next</p>
-            <a href="/writing/renaming-a-shipped-app/">Renaming a shipped app without breaking the upgrade path</a>
-          </aside>
+      <aside class="article-next">
+        <p class="mono">Read next</p>
+        <a href="/writing/renaming-a-shipped-app/">Renaming a shipped app without breaking the upgrade path</a>
+      </aside>
 
-          <div class="article-foot">
-            <a href="/writing/">← All writing</a>
-            <a href="/projects/local-route-launcher/">The project these notes come from</a>
-          </div>
-        </article>
+      <div class="article-foot">
+        <a href="/writing/">← Notes</a>
+        <a href="/projects/local-route-launcher/">The project these notes come from</a>
       </div>
     </div>
-  </section>
+  </article>
 
 </main>
 
-<footer class="site-footer">
+<footer class="site-foot">
   <div class="wrap">
-    <div class="foot-top">
-      <p class="foot-id">A working record of projects built and lessons taken.</p>
-      <nav class="foot-nav" aria-label="Footer">
+    <div class="foot-nav">
+      <span>Oliver · software engineer</span>
+      <nav class="foot-links" aria-label="Footer">
         <a class="ext" href="https://github.com/oliver804">GitHub</a>
         <a href="mailto:oliver804x@gmail.com">Email</a>
         <a href="/feed.xml">RSS</a>
-        <a href="/projects/">Projects</a>
       </nav>
     </div>
-    <p class="colophon">Hand-written HTML and CSS. No analytics, no cookies, no build step. Typeface: Newsreader. © 2026 Oliver</p>
+    <dl class="tblock">
+      <div><dt>File</dt><dd>writing/one-behaviour-two-builds/index.html</dd></div>
+      <div><dt>Set</dt><dd>Newsreader · system sans · Menlo</dd></div>
+      <div><dt>Build</dt><dd>None — hand-written, no JavaScript</dd></div>
+      <div><dt>Edited</dt><dd><time datetime="2026-10-20">20 Oct 2026</time></dd></div>
+    </dl>
+    <p class="colophon">No analytics, no cookies, no third-party requests. Typeface served from this domain. © 2026 Oliver</p>
   </div>
 </footer>
 

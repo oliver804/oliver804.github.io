@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About — Oliver’s Lab</title>
-<meta name="description" content="Why this site exists, what Oliver works on across Java services, data platforms and front-end code, and how AI-assisted development fits into the work.">
+<meta name="description" content="Why this site exists, what Oliver works on across Java services, data platforms and front-end code, how AI-assisted development fits into the work, and what the site is built with.">
 <link rel="canonical" href="https://oliver804.github.io/about/">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#faf8f3">
+<meta name="theme-color" content="#f2f0e9">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Oliver’s Lab">
 <meta property="og:title" content="About — Oliver’s Lab">
@@ -45,15 +45,15 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="site-header">
+<header class="site-head">
   <div class="wrap">
     <div class="masthead">
-      <a class="brand" href="/"><span class="brand-name">Oliver’s Lab</span></a>
-      <nav class="site-nav" aria-label="Primary">
-        <a href="/projects/">Projects</a>
-        <a href="/writing/">Writing</a>
+      <a class="brand" href="/">Oliver’s Lab</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/projects/">Work</a>
+        <a href="/writing/">Notes</a>
         <a href="/about/" aria-current="page">About</a>
-        <a class="nav-ext" href="https://github.com/oliver804">GitHub</a>
+        <a href="https://github.com/oliver804">GitHub</a>
       </nav>
     </div>
   </div>
@@ -63,99 +63,122 @@
 
   <div class="page-head">
     <div class="wrap">
-      <div class="railrow">
-        <div class="rail"><b>01</b>About</div>
-        <div>
-          <h1>A record of work, kept in public.</h1>
-          <p class="lede">Writing something down is the fastest way to find out whether it holds. This site is where that happens.</p>
-        </div>
-      </div>
+      <h1>About</h1>
+      <p class="lede">Writing something down is the fastest way to find out whether it holds. This site is where that happens — much more often for projects than for prose.</p>
     </div>
   </div>
 
-  <section class="section section--ruled">
+  <section class="sec">
     <div class="wrap">
-      <div class="railrow">
-        <div class="rail"><b>02</b>Why</div>
-        <div>
-          <div class="case">
-            <p>Most of what I learn while building software disappears within a month. The decision that took an afternoon, the reason a simpler approach failed, the check that turned out to catch the problem — all of it ends up in a closed tab or a commit message nobody reads twice. This site is the storage.</p>
-            <p>It is not a portfolio in the sense of a folder of screenshots. The site has three parts that feed each other: the project itself, the writing that came out of building it, and a short list of facts about both. The project is documented with its limits rather than its highlights. When the list grows, it will be because more things were finished, not because the page needed filling.</p>
-          </div>
-        </div>
+      <div class="case">
+        <p>Most of what I learn while building software disappears within a month. The decision that took an afternoon, the reason a simpler approach failed, the check that turned out to catch the problem — all of it ends up in a closed tab or a commit message nobody reads twice. This site is the storage.</p>
+        <p>It is not a portfolio in the sense of a folder of screenshots. The site has three parts that feed each other: the project itself, the writing that came out of building it, and a short list of facts about both. The project is documented with its limits rather than its highlights. When the list grows, it will be because more things were finished, not because the page needed filling.</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--ruled">
+  <section class="sec">
     <div class="wrap">
-      <div class="railrow">
-        <div class="rail"><b>03</b>Work</div>
-        <div>
-          <div class="case">
-            <h2>What I work on</h2>
-            <p>Most of my work sits in the unglamorous middle of software. Java services and the integration between them; data pipelines and the modelling that keeps the numbers usable months later; React interfaces when something has to become a screen and no one else is going to build it.</p>
-            <p>The connecting thread is not a language or a framework. It is what happens after delivery: whether the system can still be understood by the person who operates it next, and whether the data coming out of it can still be trusted when a source changes shape without telling anyone.</p>
-
-            <h2>How I work</h2>
-            <p>I try to start from a specific annoyance rather than a technology. Projects that begin with “I want to try this tool” tend to end as demos; projects that begin with “this takes four steps and should take one” tend to end as something still in use a year later. Local Route Launcher started as the second kind.</p>
-            <p>I prefer the smallest change that answers the actual question, and I try to write the limitation down at the same moment as the feature. The two are much easier to remember together than apart.</p>
-
-            <h2>On AI-assisted development</h2>
-            <p>I use coding agents as part of the work, and I am careful about what that means in practice. They are good at producing a first version of something reviewable. They are bad at knowing when that first version is subtly wrong, and confident in proportion to how wrong it is.</p>
-            <p>So the interesting question is not what a model can generate. It is what the review step has to become: can the change be read by someone who did not write it, can the failure be reproduced, and does the test fail when the fix is removed. That is the part I am trying to get better at, and it is why some notes here are about process rather than code.</p>
-          </div>
-        </div>
+      <div class="sec-head">
+        <h2>What I work on</h2>
+        <p class="sec-note">Java, data, front end</p>
+      </div>
+      <div class="case">
+        <p>Most of my work sits in the unglamorous middle of software. Java services and the integration between them; data pipelines and the modelling that keeps the numbers usable months later; React interfaces when something has to become a screen and no one else is going to build it.</p>
+        <p>The connecting thread is not a language or a framework. It is what happens after delivery: whether the system can still be understood by the person who operates it next, and whether the data coming out of it can still be trusted when a source changes shape without telling anyone.</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--ruled">
+  <section class="sec">
     <div class="wrap">
-      <div class="railrow">
-        <div class="rail"><b>04</b>Contact</div>
-        <div>
-          <div class="case">
-            <p>GitHub is the most reliable place to reach me: <a class="ext" href="https://github.com/oliver804">github.com/oliver804</a>. Issues and pull requests on the launcher are read. Email works too, but expect a slower reply than a well-described issue.</p>
-          </div>
-          <dl class="spec spec--spaced">
-            <div><dt>GitHub</dt><dd><a class="ext" href="https://github.com/oliver804">github.com/oliver804</a></dd></div>
-            <div><dt>Email</dt><dd><a href="mailto:oliver804x@gmail.com">oliver804x@gmail.com</a></dd></div>
-            <div><dt>Feed</dt><dd><a href="/feed.xml">RSS — writing only</a></dd></div>
-          </dl>
-        </div>
+      <div class="sec-head">
+        <h2>How I work</h2>
+        <p class="sec-note">Small changes, written limits</p>
+      </div>
+      <div class="case">
+        <p>I try to start from a specific annoyance rather than a technology. Projects that begin with “I want to try this tool” tend to end as demos; projects that begin with “this takes four steps and should take one” tend to end as something still in use a year later. Local Route Launcher started as the second kind.</p>
+        <p>I prefer the smallest change that answers the actual question, and I try to write the limitation down at the same moment as the feature. The two are much easier to remember together than apart.</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--ruled">
+  <section class="sec">
     <div class="wrap">
-      <div class="railrow">
-        <div class="rail"><b>05</b>Colophon</div>
-        <div>
-          <div class="case">
-            <p>Hand-written HTML and one stylesheet. No framework, no build step, no JavaScript, no analytics, no cookies, and no third-party requests — the typeface is served from this domain. Body text is set in the system sans; headings and the notes are set in Newsreader.</p>
-            <p>Hosted on GitHub Pages. The source is public if you want to see how little there is: <a class="ext" href="https://github.com/oliver804/oliver804.github.io">oliver804/oliver804.github.io</a>.</p>
-          </div>
-        </div>
+      <div class="sec-head">
+        <h2>On AI-assisted development</h2>
+        <p class="sec-note">Review, not generation</p>
+      </div>
+      <div class="case">
+        <p>I use coding agents as part of the work, and I am careful about what that means in practice. They are good at producing a first version of something reviewable. They are bad at knowing when that first version is subtly wrong, and confident in proportion to how wrong it is.</p>
+        <p>So the interesting question is not what a model can generate. It is what the review step has to become: can the change be read by someone who did not write it, can the failure be reproduced, and does the test fail when the fix is removed. That is the part I am trying to get better at, and it is why some notes here are about process rather than code.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Why this page rarely changes</h2>
+        <p class="sec-note">And why that is the design</p>
+      </div>
+      <div class="case">
+        <p>I am not a blogger, and the site is not arranged as one. There is no archive to keep current, no weekly thing, no “latest” rail that quietly turns into a stale date. What changes is the work list: a version number, a new screenshot, a project that finishes. Those changes are honest and infrequent, and the layout is built to survive them rather than to demand them.</p>
+        <p>Notes appear when a build produces a decision worth recording — currently four per project, in one burst. Between projects the site is quiet, and the date in the footer says exactly how long it has been quiet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="contact">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Contact</h2>
+        <p class="sec-note">GitHub is faster than email</p>
+      </div>
+      <div class="case">
+        <p>GitHub is the most reliable place to reach me: <a class="ext" href="https://github.com/oliver804">github.com/oliver804</a>. Issues and pull requests on the launcher are read. Email works too, but expect a slower reply than a well-described issue.</p>
+      </div>
+      <dl class="spec spec--spaced">
+        <div><dt>GitHub</dt><dd><a class="ext" href="https://github.com/oliver804">github.com/oliver804</a></dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:oliver804x@gmail.com">oliver804x@gmail.com</a></dd></div>
+        <div><dt>Feed</dt><dd><a href="/feed.xml">RSS — notes only</a></dd></div>
+        <div><dt>Source</dt><dd><a class="ext" href="https://github.com/oliver804/oliver804.github.io">oliver804/oliver804.github.io</a></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec" id="colophon">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Colophon</h2>
+        <p class="sec-note">No build step, by choice</p>
+      </div>
+      <div class="case">
+        <p>Hand-written HTML and one stylesheet. No framework, no build step, no JavaScript, no analytics, no cookies, and no third-party requests — the typeface is served from this domain. Body text is set in the system sans; headings and figure captions in Newsreader; version numbers, dates and paths in the system mono.</p>
+        <p>Hosted on GitHub Pages, published from the <code>main</code> branch. The source is public if you want to see how little there is: <a class="ext" href="https://github.com/oliver804/oliver804.github.io">oliver804/oliver804.github.io</a>. A page here is one file; adding a note means editing HTML by hand, which is also a useful filter on how many notes get written.</p>
       </div>
     </div>
   </section>
 
 </main>
 
-<footer class="site-footer">
+<footer class="site-foot">
   <div class="wrap">
-    <div class="foot-top">
-      <p class="foot-id">A working record of projects built and lessons taken.</p>
-      <nav class="foot-nav" aria-label="Footer">
+    <div class="foot-nav">
+      <span>Oliver · software engineer</span>
+      <nav class="foot-links" aria-label="Footer">
         <a class="ext" href="https://github.com/oliver804">GitHub</a>
         <a href="mailto:oliver804x@gmail.com">Email</a>
         <a href="/feed.xml">RSS</a>
-        <a href="/writing/">Writing</a>
       </nav>
     </div>
-    <p class="colophon">Hand-written HTML and CSS. No analytics, no cookies, no build step. Typeface: Newsreader. © 2026 Oliver</p>
+    <dl class="tblock">
+      <div><dt>File</dt><dd>about/index.html</dd></div>
+      <div><dt>Set</dt><dd>Newsreader · system sans · Menlo</dd></div>
+      <div><dt>Build</dt><dd>None — hand-written, no JavaScript</dd></div>
+      <div><dt>Edited</dt><dd><time datetime="2026-10-20">20 Oct 2026</time></dd></div>
+    </dl>
+    <p class="colophon">No analytics, no cookies, no third-party requests. Typeface served from this domain. © 2026 Oliver</p>
   </div>
 </footer>
 

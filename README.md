@@ -7,10 +7,14 @@ Live at <https://oliver804.github.io/>
 
 ## What this site is
 
-Three parts, deliberately: a personal technical brand, a public record of the
-open-source work, and the writing that comes out of building it. The home page
-carries the project, the writing index carries the notes, and the project page
-carries the evidence — release artefacts, checks and limits.
+A work record, not a blog. The home page is an index of things that shipped —
+two public repositories, each with what it does, what it costs and where to get
+it — followed by a short list of notes. There is no archive, no schedule and no
+"latest" rail, because the site is updated a few times a year and should still
+look current six months later.
+
+The reading order is deliberate: **work first, notes second, person third.**
+Page titles, section order and type sizes all follow that order.
 
 ## Structure
 
@@ -21,7 +25,7 @@ carries the evidence — release artefacts, checks and limits.
 │   ├── index.html                          project index
 │   └── local-route-launcher/index.html     project case notes
 ├── writing/
-│   ├── index.html                          writing index, topics, plans
+│   ├── index.html                          notes index
 │   ├── why-the-launcher-drives-the-app/    Software engineering
 │   ├── one-behaviour-two-builds/           Software engineering
 │   ├── renaming-a-shipped-app/             Open source
@@ -33,7 +37,10 @@ carries the evidence — release artefacts, checks and limits.
 │   ├── fonts/                              Newsreader, self-hosted (OFL)
 │   └── img/                                screenshots, favicon, link card
 ├── scripts/og-card.py                      one-off generator for the 1200×630 card
-├── docs/                                   research + design decisions
+├── docs/
+│   ├── research.md                         first-round research
+│   ├── research-personal-sites.md          how project-first sites are built (2026)
+│   └── design-plan.md                      design decisions, including the redesign
 ├── robots.txt  sitemap.xml  feed.xml
 └── .nojekyll                               serve files as-is, no Jekyll
 ```
@@ -61,25 +68,48 @@ not affected by this one.
 
 1. Copy `writing/one-behaviour-two-builds/` to `writing/<slug>/`.
 2. Change `<title>`, description, canonical, OG title/description/URL, the
-   `<time datetime>`, the topic label, the reading time and the body.
-3. Add one entry to the top of the list in `writing/index.html`, and to the
-   three-entry list in `index.html` if it belongs on the home page.
-4. Update the topic counts in `writing/index.html`, and move a topic out of the
-   *Planned* section when its first note is published.
-5. Add the entry to `feed.xml` and a `<url>` to `sitemap.xml`.
-6. Set the *Read next* link at the bottom of the previous note to the new one,
+   kicker (which project the note belongs to), the `<time datetime>` and the
+   body.
+3. Add one `<li>` to the top of the list in `writing/index.html`, *and* to the
+   four-item list in `index.html` — the home page shows all notes, so the two
+   lists must stay in step.
+4. Add the entry to `feed.xml` and a `<url>` to `sitemap.xml`.
+5. Set the *Read next* link at the bottom of the previous note to the new one,
    and give the new note its own *Read next* link.
 
-Reading time is word count ÷ 200, rounded up.
+There is no reading time and no topic taxonomy any more. A note is dated and
+attributed to a project; that is the whole metadata.
 
 ## Add a project
 
 1. Copy `projects/local-route-launcher/` to `projects/<slug>/`.
-2. Update the spec list, figures and links.
-3. Add the entry to `projects/index.html`, and to the selected-work block in
-   `index.html` only if it deserves to be the first thing a visitor sees.
+2. Update the spec list, figures, links and page title.
+3. Add a `<li>` to `.work` in `projects/index.html` with the next number, then
+   the same entry in `index.html`. Work is the only numbered list on the site,
+   and the numbers have to match across the two pages.
 4. Update the facts table on `projects/index.html` when the release, the
-   licence or the repository count changes.
+   licence or the repository count changes, and the "two public repositories"
+   count in the home page section note.
+5. Add the project to the `ItemList` in the JSON-LD on both pages.
+
+## Design decisions
+
+Four patterns only, all defined in `assets/css/style.css`:
+
+| Pattern | Used for |
+| --- | --- |
+| `.work-item` | a numbered entry in the work list: number, name, data line, copy, links |
+| `.spec` | two-column data tables (version, platforms, licence) |
+| `.fig` | a screenshot with a numbered caption (`Fig. 1`) |
+| `.notes` | one-line rows with a date on the right |
+
+Palette: paper `#f2f0e9`, ink `#17181a`, one annotation red `#9b3a25`. No
+radii, no shadows, no gradients, no animation beyond a 120 ms colour change.
+Mono type is reserved for data cells — versions, dates, paths — and never used
+as a decorative label above a heading.
+
+Rationale, sources and the rejected alternatives are in
+`docs/research-personal-sites.md` and section 11 of `docs/design-plan.md`.
 
 ## House rules
 
