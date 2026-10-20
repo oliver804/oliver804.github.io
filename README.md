@@ -1,7 +1,8 @@
 # Oliver’s Lab — source
 
 Personal site for Oliver. Static HTML and one stylesheet, served by GitHub Pages.
-No framework, no build step, no JavaScript, no analytics.
+No framework, no build step. The only JavaScript is two analytics tags —
+documented below, and on the site itself at `/about/#analytics`.
 
 Live at <https://oliver804.github.io/>
 
@@ -92,6 +93,30 @@ attributed to a project; that is the whole metadata.
    count in the home page section note.
 5. Add the project to the `ItemList` in the JSON-LD on both pages.
 
+## Analytics
+
+Two tags sit at the end of `<head>` on **every** page — the ten files listed in
+*Structure*. Both are async; neither blocks rendering, and the pages stay
+readable if they fail.
+
+| Tag | ID | Loads from |
+| --- | --- | --- |
+| Google Analytics 4 | `G-472VKF5Y95` | `googletagmanager.com/gtag/js` |
+| Microsoft Clarity | `z0l2ymgxa3` | `clarity.ms/tag/` |
+
+Both set first-party cookies (`_ga`, `_ga_472VKF5Y95`, `_clck`, `_clsk`). There
+is no advertising or remarketing configuration, and no other third-party script
+on the site.
+
+Adding a page means adding the same block: copy everything between the
+`<!-- Analytics: … -->` comment and the closing `</script>` of the Clarity tag,
+and put it immediately before `</head>`. A page without it is the only way this
+setup silently under-reports.
+
+To remove the analytics entirely, delete that block from the ten files and the
+`Analytics` section from `about/index.html`. Nothing else references them — no
+CSS, no markup, no sitemap entry.
+
 ## Design decisions
 
 Four patterns only, all defined in `assets/css/style.css`:
@@ -120,6 +145,9 @@ Rationale, sources and the rejected alternatives are in
   location. The only public contact address is the one already listed in the
   launcher's README and LICENSE.
 - An empty section stays empty. A plan is labelled as a plan.
+- A claim the site makes about itself — *no cookies*, *no build step*, *loads
+  nothing from another domain* — is updated in the same commit as the change
+  that breaks it. Those sentences are checkable, so they are not allowed to rot.
 
 ## Fonts
 

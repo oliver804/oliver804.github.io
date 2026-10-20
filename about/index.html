@@ -40,6 +40,21 @@
 <link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — notes" href="/feed.xml">
 <link rel="preload" href="/assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
+<!-- Analytics: Google Analytics 4 and Microsoft Clarity. Documented at /about/#analytics. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-472VKF5Y95"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-472VKF5Y95');
+</script>
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "z0l2ymgxa3");
+</script>
 </head>
 <body>
 
@@ -154,8 +169,22 @@
         <p class="sec-note">No build step, by choice</p>
       </div>
       <div class="case">
-        <p>Hand-written HTML and one stylesheet. No framework, no build step, no JavaScript, no analytics, no cookies, and no third-party requests — the typeface is served from this domain. Body text is set in the system sans; headings and figure captions in Newsreader; version numbers, dates and paths in the system mono.</p>
+        <p>Hand-written HTML and one stylesheet. No framework, no build step. Apart from the two analytics tags described at the end of this page, nothing is requested from another domain — the typeface is served from here. Body text is set in the system sans; headings and figure captions in Newsreader; version numbers, dates and paths in the system mono.</p>
         <p>Hosted on GitHub Pages, published from the <code>main</code> branch. The source is public if you want to see how little there is: <a class="ext" href="https://github.com/oliver804/oliver804.github.io">oliver804/oliver804.github.io</a>. A page here is one file; adding a note means editing HTML by hand, which is also a useful filter on how many notes get written.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="analytics">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Analytics</h2>
+        <p class="sec-note">Two tags, added later</p>
+      </div>
+      <div class="case">
+        <p>Two analytics scripts run on every page: Google Analytics 4 and Microsoft Clarity. The reason is narrow — whether anything here is read, which pages are found, and where visits stop. There is no advertising, no remarketing, and no profile of you assembled across other sites.</p>
+        <p>Both are third-party scripts, loaded from <code>googletagmanager.com</code> and <code>clarity.ms</code>. Both set first-party cookies and report page views, referrers and device type. Clarity additionally records interaction data: clicks, scroll depth, and session recordings under its default masking. Blocking either one changes nothing about how a page renders — this is static HTML that never waits for a script to arrive.</p>
+        <p>This is a reversal. An earlier version of this page said the site carried no analytics and made no third-party requests, and that was true when it was written. It is recorded here instead of being quietly deleted, because the claim was specific enough that someone may have believed it.</p>
       </div>
     </div>
   </section>
@@ -175,10 +204,10 @@
     <dl class="tblock">
       <div><dt>File</dt><dd>about/index.html</dd></div>
       <div><dt>Set</dt><dd>Newsreader · system sans · Menlo</dd></div>
-      <div><dt>Build</dt><dd>None — hand-written, no JavaScript</dd></div>
+      <div><dt>Build</dt><dd>None — hand-written, no framework</dd></div>
       <div><dt>Edited</dt><dd><time datetime="2026-10-20">20 Oct 2026</time></dd></div>
     </dl>
-    <p class="colophon">No analytics, no cookies, no third-party requests. Typeface served from this domain. © 2026 Oliver</p>
+    <p class="colophon">Analytics: Google Analytics, Microsoft Clarity. Typeface served from this domain. © 2026 Oliver</p>
   </div>
 </footer>
 

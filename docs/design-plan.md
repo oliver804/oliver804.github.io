@@ -303,3 +303,41 @@
 - 不加暗色模式：多一个需要维护的状态
 - 不加"最近更新"组件或任何 JavaScript
 - 不编造第三个项目来填版式；"In progress" 段继续空着并说明原因
+
+---
+
+## 12. 统计代码（第四轮）：一次被记录的倒退
+
+要求：装上 Google Analytics 4 与 Microsoft Clarity。
+
+这与本站此前公开声明的一条原则直接冲突——`about` 页原本写着 "no JavaScript,
+no analytics, no cookies, and no third-party requests"。站点本身的价值恰恰建立在
+"这些句子都可验证" 上，所以处理方式不是把那句话悄悄删掉。
+
+### 12.1 做法
+
+- 两段代码原样放在 10 个页面的 `</head>` 之前，`async` 加载，不阻塞渲染。
+- 三个此前声明"无统计"的位置全部改写，不是删除：
+  - 首页 "This site" 条目
+  - `/projects/` 的 "This site" 条目
+  - `about` 的 Colophon 段与每页页脚的 colophon 行
+- 页脚图签的 `Build` 值从 "None — hand-written, no JavaScript" 改为
+  "None — hand-written, no framework"（仍为真）。
+- `about` 新增 `#analytics` 一节，写清：跑的是哪两个、由谁提供、会记录什么、
+  以及为什么这一页此前说过相反的话。`head` 里的注释指向该锚点。
+
+### 12.2 验证
+
+本地 headless 实测：`gtag/js` 200、GA4 `g/collect` 204、`clarity.ms/tag` 200、
+`scripts.clarity.ms/clarity.js` 200；`window.dataLayer` 4 条、`gtag` 与 `clarity`
+均为函数；cookie `_ga`、`_ga_472VKF5Y95`、`_clck` 均已写入；无页面报错。
+
+### 12.3 已知代价与未做的
+
+- **性能**：第三方脚本约 150 KB，`async` 不阻塞首屏，但会进入 TBT。这是这次
+  改动的实测代价，不是猜测。
+- **合规**：GA4 与 Clarity 默认在首次访问即写 cookie，欧盟/英国访客需要先取得
+  同意。本站没有同意横幅。要么接受现状（个人站、低流量），要么加一个需要 JS
+  的横幅——后者与"页面不依赖脚本"的原则冲突。当前选择是前者，并且写在明处。
+- 未加 `preconnect`：多两个 DNS/TLS 握手换来的是几十毫秒，但会多两条第三方
+  连接，收益不稳定，先不加。
