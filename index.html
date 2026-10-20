@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Oliver’s Lab — software engineering, data, AI-assisted development</title>
-<meta name="description" content="Software engineer working on Java services, data platforms and front-end code. Local Route Launcher is open source; notes on software that stays maintainable.">
+<meta name="description" content="Software engineer working on Java services, data platforms and front-end code. Open-source tools, project notes, and writing on software that stays maintainable.">
 <link rel="canonical" href="https://oliver804.github.io/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#faf8f3">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Oliver’s Lab">
 <meta property="og:title" content="Oliver’s Lab — software that holds up after launch">
-<meta property="og:description" content="Software engineer working on Java services, data platforms and front-end code. One open-source project, and notes on building tools that stay maintainable.">
+<meta property="og:description" content="Software engineer working on Java services, data platforms and front-end code. A project record, open-source releases, and notes from building them.">
 <meta property="og:url" content="https://oliver804.github.io/">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://oliver804.github.io/assets/img/og-card.png">
@@ -19,7 +19,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — notes" href="/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — writing" href="/feed.xml">
 <link rel="preload" href="/assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
@@ -33,7 +33,7 @@
       <a class="brand" href="/"><span class="brand-name">Oliver’s Lab</span></a>
       <nav class="site-nav" aria-label="Primary">
         <a href="/projects/">Projects</a>
-        <a href="/notes/">Notes</a>
+        <a href="/writing/">Writing</a>
         <a href="/about/">About</a>
         <a class="nav-ext" href="https://github.com/oliver804">GitHub</a>
       </nav>
@@ -50,14 +50,14 @@
         <div>
           <p class="meta eyebrow">Software engineering · Data · AI-assisted development</p>
           <h1>Software that holds up<br><em>after launch</em>.</h1>
-          <p class="hero-deck">I’m Oliver. I work on Java services, data platforms and front-end code — the parts that have to keep running after release: data that must stay correct, systems someone else has to operate, small tools that remove a repeated annoyance. One of them is open source, and it is documented below.</p>
+          <p class="hero-deck">I’m Oliver. I work on Java services, data platforms and front-end code — the parts that have to keep running after release: data that must stay correct, systems someone else has to operate, small tools that remove a repeated annoyance. This site is the record of that work: one project shown in detail, and the notes that came out of building it.</p>
           <div class="hero-links">
             <a class="link" href="#work">Selected work</a>
-            <a class="link" href="/notes/">Lab notes</a>
+            <a class="link" href="/writing/">Writing</a>
             <a class="link ext" href="https://github.com/oliver804">GitHub</a>
           </div>
           <p class="status">
-            <span><span class="dot">●</span> Now building: Local Route Launcher 1.2.0</span>
+            <span><span class="dot">●</span> Released: Local Route Launcher 1.2.0 — macOS and Windows</span>
             <span>Page updated 20 Oct 2026</span>
           </p>
         </div>
@@ -111,8 +111,43 @@
               <a href="/projects/local-route-launcher/">Read the project notes</a>
               <a class="is-muted ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher">Source</a>
               <a class="is-muted ext" href="https://github.com/oliver804/ChatGPT-Proxy-Launcher/releases/tag/v1.2.0">Download 1.2.0</a>
+              <a class="is-muted" href="/projects/">All projects</a>
             </div>
+
+            <p class="entry-next">Also public: <a class="link" href="https://github.com/oliver804/oliver804.github.io">the source of this site</a> — hand-written HTML and CSS, no build step, no JavaScript, no third-party requests.</p>
           </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ruled" id="writing">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>03</b>Writing</div>
+        <div>
+          <div class="section-head">
+            <h2>Written down while building</h2>
+            <p class="meta"><a class="link" href="/writing/">All writing</a></p>
+          </div>
+          <div class="entries">
+            <a class="entry" href="/writing/why-the-launcher-drives-the-app/">
+              <span class="entry-label"><time datetime="2026-10-20">20 Oct 2026</time><br>5 min<br>Software engineering</span>
+              <span class="entry-title">Why the launcher drives the app instead of the system proxy</span>
+              <span class="entry-dek">A machine-wide switch is one click and fails where you cannot see it. Scoping the same setting to a single process is more work to build and far easier to reason about.</span>
+            </a>
+            <a class="entry" href="/writing/one-behaviour-two-builds/">
+              <span class="entry-label"><time datetime="2026-10-20">20 Oct 2026</time><br>5 min<br>Software engineering</span>
+              <span class="entry-title">One behaviour, two builds</span>
+              <span class="entry-dek">The Windows edition is not a port. What two native implementations share, what they cannot share, and how parity gets tested without an account, a display, or anyone to click.</span>
+            </a>
+            <a class="entry" href="/writing/renaming-a-shipped-app/">
+              <span class="entry-label"><time datetime="2026-10-20">20 Oct 2026</time><br>4 min<br>Open source</span>
+              <span class="entry-title">Renaming a shipped app without breaking the upgrade path</span>
+              <span class="entry-dek">A name is attached to six different things, and only some of them can change. What moved in 1.1.0, what stayed, and why the repository still carries the old name.</span>
+            </a>
+          </div>
+          <p class="entry-next">Next: <a class="link" href="/writing/a-version-number-is-a-build-output/">A version number is a build output</a> — on version metadata, packaging and the checks that have to run before publishing rather than after.</p>
         </div>
       </div>
     </div>
@@ -121,7 +156,7 @@
   <section class="section section--ruled" id="focus">
     <div class="wrap">
       <div class="railrow">
-        <div class="rail"><b>03</b>Focus</div>
+        <div class="rail"><b>04</b>Focus</div>
         <div>
           <div class="section-head">
             <h2>What I’m working through</h2>
@@ -145,28 +180,6 @@
               <dd>Finishing end to end: interface, packaging, release notes, documentation, and explaining honestly what the thing cannot do.</dd>
             </div>
           </dl>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--ruled" id="notes">
-    <div class="wrap">
-      <div class="railrow">
-        <div class="rail"><b>04</b>Lab notes</div>
-        <div>
-          <div class="section-head">
-            <h2>Written down while building</h2>
-            <p class="meta"><a class="link" href="/notes/">All notes</a></p>
-          </div>
-          <div class="entries">
-            <a class="entry" href="/notes/why-the-launcher-drives-the-app/">
-              <span class="entry-label"><time datetime="2026-10-20">20 Oct 2026</time><br>7 min · Design notes</span>
-              <span class="entry-title">Why the launcher drives the app instead of the system proxy</span>
-              <span class="entry-dek">A machine-wide switch is one click and fails where you cannot see it. Scoping the same setting to a single process is more work to build and far easier to reason about.</span>
-            </a>
-          </div>
-          <p class="entry-next">Next: packaging the same small tool twice — SwiftUI and WPF — and what using a coding agent on a real release changed about the review step.</p>
         </div>
       </div>
     </div>

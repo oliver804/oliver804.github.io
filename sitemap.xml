@@ -16,12 +16,27 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://oliver804.github.io/notes/</loc>
+    <loc>https://oliver804.github.io/writing/</loc>
     <lastmod>2026-10-20</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://oliver804.github.io/notes/why-the-launcher-drives-the-app/</loc>
+    <loc>https://oliver804.github.io/writing/why-the-launcher-drives-the-app/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://oliver804.github.io/writing/one-behaviour-two-builds/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://oliver804.github.io/writing/renaming-a-shipped-app/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://oliver804.github.io/writing/a-version-number-is-a-build-output/</loc>
     <lastmod>2026-10-20</lastmod>
     <priority>0.7</priority>
   </url>

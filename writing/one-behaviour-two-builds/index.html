@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One behaviour, two builds</title>
+<meta name="description" content="The Windows edition of Local Route Launcher is not a port. It is the same argument made twice, in two languages that agree about almost nothing except where a window goes.">
+<link rel="canonical" href="https://oliver804.github.io/writing/one-behaviour-two-builds/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#faf8f3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Oliver’s Lab">
+<meta property="og:title" content="One behaviour, two builds">
+<meta property="og:description" content="What a second native implementation of the same small tool shares, what it cannot, and how parity gets tested without an account.">
+<meta property="og:url" content="https://oliver804.github.io/writing/one-behaviour-two-builds/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://oliver804.github.io/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — writing" href="/feed.xml">
+<link rel="preload" href="/assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="masthead">
+      <a class="brand" href="/"><span class="brand-name">Oliver’s Lab</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/projects/">Projects</a>
+        <a href="/writing/" aria-current="page">Writing</a>
+        <a href="/about/">About</a>
+        <a class="nav-ext" href="https://github.com/oliver804">GitHub</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <header class="article-head">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>01</b>Note</div>
+        <div>
+          <p class="meta meta--pine">Software engineering</p>
+          <h1>One behaviour, two builds</h1>
+          <p class="article-meta">
+            <span><time datetime="2026-10-20">20 October 2026</time></span>
+            <span>5 min read</span>
+            <span>Local Route Launcher</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="article">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>02</b>Body</div>
+        <article>
+          <div class="article-body">
+<p>The Windows edition of Local Route Launcher is not a port. It is the same argument made twice, in two languages that agree about almost nothing except where a window goes.</p>
+
+<p>Version 1.2.0 was the first release with both. Building the second one changed how I think about what a feature is, because roughly half of the work was not code — it was deciding which sentences both builds had to make true.</p>
+
+<h2>The specification is shorter than the feature list</h2>
+
+<p>Strip the platforms away and the tool promises eight things:</p>
+
+<ul>
+  <li>Accept a proxy endpoint, check that it is well formed, and remember it.</li>
+  <li>Launch one named application with that endpoint scoped to that launch only.</li>
+  <li>Leave the system proxy, DNS and routing configuration alone.</li>
+  <li>Report three separate connection checks, each saying what it measured.</li>
+  <li>Ask the application to close, and never force it.</li>
+  <li>Stay reachable from the menu bar or the notification area when the window is gone.</li>
+  <li>Switch between English and Simplified Chinese immediately, and remember the choice.</li>
+  <li>Look deliberate in light and dark.</li>
+</ul>
+
+<p>That is the whole product. Written as a list, it fits on one screen, and every item is a sentence a user can verify. Written as a codebase, it is two applications that happen to share a name.</p>
+
+<h2>Why not one runtime</h2>
+
+<p>The obvious alternative is a single codebase in a webview shell. I did not take it, and the reason is not taste.</p>
+
+<p>Nearly every operation here is an operating-system operation: enumerate processes, read their arguments, inspect a PID-scoped connection table, ask another application to quit, place an icon in a system tray, install per user without administrator rights. A webview would supply the window and then hand all of that back to native code through a bridge. The download would grow by an order of magnitude for a utility whose window is usually closed.</p>
+
+<p>So the choice was between one implementation with a bridge and two implementations without one. I chose the second and accepted the cost: every behaviour is written twice, and the two copies will drift unless something makes them agree.</p>
+
+<h2>What actually got shared</h2>
+
+<p>No code crossed over. What crossed over was wording, rules and order of operations:</p>
+
+<ul>
+  <li><strong>Validation rules.</strong> The same definition of a usable endpoint on both sides, including the cases that should be refused rather than corrected.</li>
+  <li><strong>The labels of the three checks.</strong> Identical in both builds, because a user comparing screenshots of two platforms should not have to work out whether “tunnel” means the same thing.</li>
+  <li><strong>The structure of the language catalogue.</strong> Separate files, but the same keys in the same order, so a missing string is visible rather than silent.</li>
+  <li><strong>One version number.</strong> Both platforms read the same <code>VERSION</code> file, which is the subject of another note.</li>
+  <li><strong>The release checklist.</strong> The same steps, in the same order, with two platform-specific branches.</li>
+</ul>
+
+<p>That is a thinner kind of sharing than a shared library, and it is the kind that survives. A shared abstraction would have to model process inspection and tray icons; the model would be wrong on one platform within a release, and then both builds would inherit the error.</p>
+
+<h2>The parts that refused to be the same</h2>
+
+<p><strong>Process inspection.</strong> On macOS the launcher reads process arguments and socket state directly. On Windows it combines PowerShell and CIM queries with a native, PID-scoped TCP table. The intent is identical; the mechanics have nothing in common. Paths and user settings are passed as an argument vector and never interpolated into a command string, because a path with a space or a quote in it is not an edge case on Windows — it is Tuesday.</p>
+
+<p><strong>Environment inheritance.</strong> Windows environment blocks are case-insensitive and macOS ones are not. A variable written as <code>http_proxy</code> and read as <code>HTTP_PROXY</code> is one key on one platform and two keys on the other. Getting this wrong produces a launcher that works on the machine it was written on and mysteriously does not on someone else's.</p>
+
+<p><strong>Asking an app to close.</strong> macOS goes through Launch Services; Windows posts a close request to the main window. Neither build terminates the process. Killing another application is how you lose someone's unsaved conversation, and a utility that can do that is not trustworthy with a single setting.</p>
+
+<p><strong>The tray.</strong> An AppKit status item and a WinForms notification icon hosted inside WPF look similar and share nothing.</p>
+
+<p><strong>Settings storage.</strong> macOS keeps the existing preferences domain, which also survived a product rename. Windows writes atomic JSON under the user's local application data. Both install per user, neither needs administrator rights, neither registers a service, neither starts at login.</p>
+
+<h2>Testing something that needs an account you do not have</h2>
+
+<p>The uncomfortable constraint: the application under test is a third-party desktop app that requires a signed-in account, and CI has no account, no display, and nobody to click anything. The way around it is a fixture — a separate, deliberately trivial application built for validation only, carrying the same executable name the launcher looks for. It is never bundled into an installer. Tests install the launcher to a path containing spaces, start the fixture through it, and check what the fixture actually received: arguments, environment, duplicate-launch rejection, graceful shutdown. Then they cover the four language and appearance combinations, closing and reopening the window, and uninstalling.</p>
+
+<p>The macOS side took a different route for the same reason. The core checks are compiled into small executables with <code>swiftc</code> and run directly, with no test framework in between. The Windows core project builds and tests without WPF at all, because endpoint validation and preference writes do not need a window.</p>
+
+<p>What none of this proves is that a real signed-in account works. The release notes say so in the same paragraph as the list of checks, which is the only honest place to put it.</p>
+
+<h2>Parity is a list of sentences, not a diff</h2>
+
+<p>Two builds will never be identical, and pretending otherwise produces a feature matrix nobody reads. What can be identical is the list at the top of this page. When a platform cannot honour an item, the page for that platform says which one and why, in the same place the user is already looking.</p>
+
+<p>Two implementations cost more than one. For a tool whose entire purpose is to touch as little of the machine as possible, it was also the only way to keep it small.</p>
+          </div>
+
+          <aside class="article-next">
+            <p class="meta">Read next</p>
+            <a href="/writing/renaming-a-shipped-app/">Renaming a shipped app without breaking the upgrade path</a>
+          </aside>
+
+          <div class="article-foot">
+            <a href="/writing/">← All writing</a>
+            <a href="/projects/local-route-launcher/">The project these notes come from</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-id">A working record of projects built and lessons taken.</p>
+      <nav class="foot-nav" aria-label="Footer">
+        <a class="ext" href="https://github.com/oliver804">GitHub</a>
+        <a href="mailto:oliver804x@gmail.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+    <p class="colophon">Hand-written HTML and CSS. No analytics, no cookies, no build step. Typeface: Newsreader. © 2026 Oliver</p>
+  </div>
+</footer>
+
+</body>
+</html>

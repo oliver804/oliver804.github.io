@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A version number is a build output</title>
+<meta name="description" content="A version typed into four places is four versions. How one file became the only source, and what else a release artefact has to prove about itself.">
+<link rel="canonical" href="https://oliver804.github.io/writing/a-version-number-is-a-build-output/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#faf8f3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Oliver’s Lab">
+<meta property="og:title" content="A version number is a build output">
+<meta property="og:description" content="On version metadata, packaging, checksums and the checks that have to run before publishing rather than after.">
+<meta property="og:url" content="https://oliver804.github.io/writing/a-version-number-is-a-build-output/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://oliver804.github.io/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — writing" href="/feed.xml">
+<link rel="preload" href="/assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="masthead">
+      <a class="brand" href="/"><span class="brand-name">Oliver’s Lab</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/projects/">Projects</a>
+        <a href="/writing/" aria-current="page">Writing</a>
+        <a href="/about/">About</a>
+        <a class="nav-ext" href="https://github.com/oliver804">GitHub</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <header class="article-head">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>01</b>Note</div>
+        <div>
+          <p class="meta meta--pine">Developer tools</p>
+          <h1>A version number is a build output</h1>
+          <p class="article-meta">
+            <span><time datetime="2026-10-20">20 October 2026</time></span>
+            <span>4 min read</span>
+            <span>Local Route Launcher</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="article">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>02</b>Body</div>
+        <article>
+          <div class="article-body">
+<p>In the first version, the version number existed in four places: the bundle metadata, the download file name, the release notes, and my head. Three of those can disagree, and the fourth is the one that writes the other three.</p>
+
+<p>The fix was not a convention. It was making the version an input that everything else derives from, and making the build fail when it is malformed.</p>
+
+<h2>One file, checked at the door</h2>
+
+<p>The repository contains a single <code>VERSION</code> file. The shared build metadata reads it, strips the line ending, and refuses to continue unless it matches a three-part semantic version. That check runs before anything is compiled, which means a typo in a version is a build failure rather than a release with three different numbers in it.</p>
+
+<p>Everything downstream reads that value: the macOS bundle's short version and build version are patched into the property list at build time, the output directory is named after it, the disk image name contains it and the architecture, the source archive is named after it, and the release page is created for the tag that matches it. Nothing accepts a version as a parameter, because a parameter is an opportunity to pass the wrong one.</p>
+
+<h2>What an artefact should be able to answer</h2>
+
+<p>A downloaded file should be able to answer three questions without a network connection: what is this, what version is it, and is it the file you published?</p>
+
+<p>The first two come from metadata inside the bundle. The third comes from a checksum file published next to the binaries, covering both platforms and the source archive in one list. A checksum is a weak guarantee — it proves the file matches what the publisher had, not that the publisher is trustworthy — but it is a guarantee a user can check, which is more than most download pages offer.</p>
+
+<h2>Packaging is where the truth leaks</h2>
+
+<p>Two leaks are worth designing against, and neither is caught by compiling successfully.</p>
+
+<p>The first is your own machine. A compiler will happily embed absolute paths from the build directory into a binary, and those paths contain a username. Passing source and debug prefix maps to the compiler rewrites them to a relative path, so the shipped binary does not carry a directory tree that only existed on one laptop. It costs two flags and one line of build configuration.</p>
+
+<p>The second is everything else you did not mean to publish. A small script scans source files and, separately, the built application bundle, for home directory paths, temporary paths, private keys, access tokens, authenticated URLs, private IP addresses and email addresses that are not on an explicit allowlist. It runs as part of the normal test target and again during packaging. Finding a token in a release is not a mistake you want to discover from a stranger's email.</p>
+
+<p>The same step is where the boring obligations live: the licence file and the bilingual installation instructions are copied into the package rather than left in the repository, because the person opening a disk image has not cloned anything.</p>
+
+<h2>Say what you did not sign</h2>
+
+<p>Both platforms ship without the kind of signature that removes a warning. macOS builds are ad-hoc signed, not notarised; the Windows installer is not Authenticode-signed and will trigger SmartScreen. That is a distribution decision made with open eyes, and the release notes state it in the same section as the feature list, next to the instruction to verify checksums rather than disable a system protection.</p>
+
+<p>A warning that users are told about in advance is a cost. A warning that appears unexpectedly reads as malware, and the user's next move — clicking through the dialogue without reading it — is the habit that makes the whole ecosystem worse.</p>
+
+<h2>CI cannot check what needs a screen</h2>
+
+<p>Continuous integration here runs source checks, the core tests, both builds, and package validation. It cannot open a window, so the checks that require a desktop session — installation from a path with spaces, four language and appearance combinations, close and reopen, uninstall — are skipped there.</p>
+
+<p>That leaves a gap between “the pipeline is green” and “this is shippable”. The honest way to close it is a checklist that someone runs on a real machine before publishing, in the order the user will experience it: build, verify the disk image, run the integration checks, run the UI checks, read the release notes. The pipeline does not pretend to cover it, and publishing waits for both platform builds rather than racing them.</p>
+
+<h2>Why this is worth the ceremony</h2>
+
+<p>None of it makes the tool better at launching an application. It makes the release something that can be described accurately in one paragraph, which is what a stranger needs before running an unsigned binary that changes how another program connects to the network.</p>
+
+<p>The version number is the smallest example of the principle: it is not a label added at the end of the process, it is the first input, and every artefact is a consequence of it. A release you cannot describe precisely is a release you cannot ask anyone to trust.</p>
+          </div>
+
+          <aside class="article-next">
+            <p class="meta">Read next</p>
+            <a href="/writing/why-the-launcher-drives-the-app/">Why the launcher drives the app instead of the system proxy</a>
+          </aside>
+
+          <div class="article-foot">
+            <a href="/writing/">← All writing</a>
+            <a href="/projects/local-route-launcher/">The project these notes come from</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-id">A working record of projects built and lessons taken.</p>
+      <nav class="foot-nav" aria-label="Footer">
+        <a class="ext" href="https://github.com/oliver804">GitHub</a>
+        <a href="mailto:oliver804x@gmail.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+    <p class="colophon">Hand-written HTML and CSS. No analytics, no cookies, no build step. Typeface: Newsreader. © 2026 Oliver</p>
+  </div>
+</footer>
+
+</body>
+</html>

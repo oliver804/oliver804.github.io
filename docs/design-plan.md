@@ -221,14 +221,31 @@
 
 ## 8. 上线前置条件（阻塞项）
 
-1. **SSH 公钥未被 GitHub 接受** → 需要把 `~/.ssh/id_rsa.pub` 内容加到 https://github.com/settings/keys ，或在推送时提供 PAT。
-2. **仓库是否存在（私有）** → 授权后先 `git ls-remote` 确认，若已有内容则先拉取、比对、再决定合并方式，绝不 `push --force`。
-3. **发布后校验** → 推送后等 Pages 构建，实测 `/`、`/projects/`、`/notes/why-the-launcher-drives-the-app/`、`/404.html` 四个 URL 的 200 与内容，再确认项目站 `/ChatGPT-Proxy-Launcher/` 未被影响（两个仓库互不影响，但仍需实测）。
+1. ~~SSH 公钥未被 GitHub 接受~~ → 已解决，`ssh -T git@github.com` 返回 `Hi oliver804!`。
+2. **仓库尚不存在** → `oliver804.github.io` 远端仍是 404。推送前需要先在 GitHub 上建空仓库（不勾 README / .gitignore / license），否则 `git push` 会报 `Repository not found`。绝不对已有内容 `push --force`。
+3. **发布后校验** → 推送后等 Pages 构建，实测 `/`、`/projects/`、`/projects/local-route-launcher/`、`/writing/`、`/writing/one-behaviour-two-builds/`、`/404.html` 的 200 与内容，再确认项目站 `/ChatGPT-Proxy-Launcher/` 未被影响（两个仓库互不影响，但仍需实测）。
 
 ---
 
 ## 9. 后续扩展操作（写给自己）
 
 - **加一个项目**：复制 `projects/local-route-launcher/index.html` → 改标题、规格表、图注 → 在 `projects/index.html` 和首页 `#work` 增加一条 → `sitemap.xml` 加一行。
-- **加一篇笔记**：复制 `notes/why-the-launcher-drives-the-app/index.html` → 改 `<title>`/日期/正文 → 在 `notes/index.html` 顶部加一行 → `sitemap.xml` 与 `feed.xml` 各加一条。
+- **加一篇笔记**：复制 `writing/one-behaviour-two-builds/index.html` → 改 `<title>`/描述/日期/主题/正文 → 在 `writing/index.html` 顶部加一行并更新主题计数 → 首页三篇列表换一篇 → `sitemap.xml` 与 `feed.xml` 各加一条 → 把上一篇的 *Read next* 指过来。完整步骤见 `README.md`。
 - **改名**：`assets/css/style.css` 不需要动；改每页 `.brand-name`、`<title>` 后缀、`README.md`。
+
+---
+
+## 10. 定位修正（第二轮）
+
+第一轮交付后复核定位，结论是**部分符合**"个人技术品牌 + 开源项目展示 + 技术博客"的组合目标，但三根支柱的配重失衡：
+
+| 问题 | 表现 | 处理 |
+| --- | --- | --- |
+| 博客只有 1 篇 | `/notes/` 更像"给项目页配的说明"，不像可长期积累的栏目；没有分类，也没有主题体系 | 栏目改为 `Writing`（URL 同步改为 `/writing/`），补 3 篇基于公开仓库事实的长文，建立 5 个主题的分类和计数，未写的两个主题明确标为 Planned |
+| 项目展示只有一条入口 | 首页与项目页都在讲同一个项目，没有"开源工作面"的整体观感 | 项目页拆成 Public / Facts / In progress 三段，加入第二个真实仓库（本站源码），事实表列出发布、语言、许可证、分发方式、测试 |
+| 首页偏"长篇随笔" | 首屏之后是一段产品长文，写作与技术方向被压在最后 | 段落顺序改为 01 序 / 02 Selected work / 03 Writing / 04 Focus，写作升到项目之后 |
+| 项目页与文章不互链 | 读完项目页没有下一步，读完文章也回不到项目 | 项目页加"Notes about this project"列表；每篇文章底部加 *Read next* 与"这一组笔记来自哪个项目" |
+
+没有为此编造第二个产品或虚构文章主题：新增的第二个仓库就是本站源码，四篇文章的事实全部来自 `ChatGPT-Proxy-Launcher` 的 README、CHANGELOG、RELEASE_NOTES、ARCHITECTURE、构建与测试脚本。Data engineering 与 AI-assisted development 两个主题保持 Planned 状态，等有草稿再上线。
+
+公开邮箱 `oliver804x@gmail.com` 按你的决定保留，它已经出现在项目 README 与 LICENSE 中，也与项目自带 `scripts/privacy-check.py` 的 `APPROVED_EMAIL` 白名单一致。

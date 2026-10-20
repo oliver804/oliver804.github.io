@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing — Oliver’s Lab</title>
+<meta name="description" content="Notes from building a small cross-platform tool: scoping a change, keeping two native builds in step, renaming a shipped app, and packaging a release that can be checked.">
+<link rel="canonical" href="https://oliver804.github.io/writing/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#faf8f3">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Oliver’s Lab">
+<meta property="og:title" content="Writing — Oliver’s Lab">
+<meta property="og:description" content="Notes from building a small cross-platform tool. Four published, more planned.">
+<meta property="og:url" content="https://oliver804.github.io/writing/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://oliver804.github.io/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — writing" href="/feed.xml">
+<link rel="preload" href="/assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="masthead">
+      <a class="brand" href="/"><span class="brand-name">Oliver’s Lab</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/projects/">Projects</a>
+        <a href="/writing/" aria-current="page">Writing</a>
+        <a href="/about/">About</a>
+        <a class="nav-ext" href="https://github.com/oliver804">GitHub</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="page-head">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>01</b>Index</div>
+        <div>
+          <h1>Writing</h1>
+          <p class="lede">Notes written while building, not after. Each one starts from a decision that had a cost, and stays with that decision long enough to say what the cost was.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section section--ruled">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>02</b>Published</div>
+        <div>
+          <div class="section-head">
+            <h2>Four notes</h2>
+            <p class="meta"><a class="link" href="/feed.xml">RSS</a></p>
+          </div>
+
+          <div class="entries">
+            <a class="entry" href="/writing/why-the-launcher-drives-the-app/">
+              <span class="entry-label"><time datetime="2026-10-20">20 Oct 2026</time><br>5 min<br>Software engineering</span>
+              <span class="entry-title">Why the launcher drives the app instead of the system proxy</span>
+              <span class="entry-dek">A machine-wide switch is one click and fails where you cannot see it. Scoping the same setting to a single process is more work to build and far easier to reason about.</span>
+            </a>
+            <a class="entry" href="/writing/one-behaviour-two-builds/">
+              <span class="entry-label"><time datetime="2026-10-20">20 Oct 2026</time><br>5 min<br>Software engineering</span>
+              <span class="entry-title">One behaviour, two builds</span>
+              <span class="entry-dek">The Windows edition is not a port. What two native implementations share, what they cannot share, and how parity gets tested without an account, a display, or anyone to click.</span>
+            </a>
+            <a class="entry" href="/writing/renaming-a-shipped-app/">
+              <span class="entry-label"><time datetime="2026-10-20">20 Oct 2026</time><br>4 min<br>Open source</span>
+              <span class="entry-title">Renaming a shipped app without breaking the upgrade path</span>
+              <span class="entry-dek">A name is attached to six different things, and only some of them can change. What moved in 1.1.0, what stayed, and why the repository still carries the old name.</span>
+            </a>
+            <a class="entry" href="/writing/a-version-number-is-a-build-output/">
+              <span class="entry-label"><time datetime="2026-10-20">20 Oct 2026</time><br>4 min<br>Developer tools</span>
+              <span class="entry-title">A version number is a build output</span>
+              <span class="entry-dek">A version typed into four places is four versions. One file became the only source, and the release artefacts became things that can answer questions about themselves.</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ruled">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>03</b>Topics</div>
+        <div>
+          <div class="section-head">
+            <h2>Where these belong</h2>
+            <p class="meta">One topic per note</p>
+          </div>
+          <dl class="rows">
+            <div>
+              <dt>Software engineering</dt>
+              <dd>2 notes — scope, behaviour, failure modes, and what a second implementation does to both.</dd>
+            </div>
+            <div>
+              <dt>Open source</dt>
+              <dd>1 note — naming, identifiers, and the upgrade path a rename has to keep intact.</dd>
+            </div>
+            <div>
+              <dt>Developer tools</dt>
+              <dd>1 note — builds, packaging and the checks that run before a release rather than after it.</dd>
+            </div>
+          </dl>
+          <div class="prose">
+            <p>Two more areas are being written rather than waiting for an empty category page. They are listed below for the same reason the project page lists nothing it cannot show.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ruled">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>04</b>Planned</div>
+        <div>
+          <div class="section-head">
+            <h2>Being written</h2>
+            <p class="meta">No draft worth reading yet</p>
+          </div>
+          <dl class="rows">
+            <div>
+              <dt>AI-assisted development</dt>
+              <dd>What a coding agent changes about the review step on work that has to be auditable — where it shortens the loop, and where plausible code costs more to verify than to write.</dd>
+            </div>
+            <div>
+              <dt>Data engineering</dt>
+              <dd>Keeping numbers correct after the source, the schema and the people around them have changed, and the checks that catch a quiet break before anyone asks.</dd>
+            </div>
+          </dl>
+          <p class="entry-next">A topic moves into the list above when there is a note filed under it. Until then it stays a plan, which is a more useful thing to publish than a heading with nothing beneath it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-id">A working record of projects built and lessons taken.</p>
+      <nav class="foot-nav" aria-label="Footer">
+        <a class="ext" href="https://github.com/oliver804">GitHub</a>
+        <a href="mailto:oliver804x@gmail.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="/about/">About</a>
+      </nav>
+    </div>
+    <p class="colophon">Hand-written HTML and CSS. No analytics, no cookies, no build step. Typeface: Newsreader. © 2026 Oliver</p>
+  </div>
+</footer>
+
+</body>
+</html>

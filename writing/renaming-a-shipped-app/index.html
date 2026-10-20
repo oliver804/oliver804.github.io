@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Renaming a shipped app without breaking the upgrade path</title>
+<meta name="description" content="A name is attached to six different things, and only some can change. What moved in 1.1.0, what stayed, and why the repository keeps the old name.">
+<link rel="canonical" href="https://oliver804.github.io/writing/renaming-a-shipped-app/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#faf8f3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Oliver’s Lab">
+<meta property="og:title" content="Renaming a shipped app without breaking the upgrade path">
+<meta property="og:description" content="Why the public app name changed while the repository URL, bundle identifier and preferences domain did not.">
+<meta property="og:url" content="https://oliver804.github.io/writing/renaming-a-shipped-app/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://oliver804.github.io/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Oliver’s Lab — writing" href="/feed.xml">
+<link rel="preload" href="/assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="masthead">
+      <a class="brand" href="/"><span class="brand-name">Oliver’s Lab</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/projects/">Projects</a>
+        <a href="/writing/" aria-current="page">Writing</a>
+        <a href="/about/">About</a>
+        <a class="nav-ext" href="https://github.com/oliver804">GitHub</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <header class="article-head">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>01</b>Note</div>
+        <div>
+          <p class="meta meta--pine">Open source</p>
+          <h1>Renaming a shipped app without breaking the upgrade path</h1>
+          <p class="article-meta">
+            <span><time datetime="2026-10-20">20 October 2026</time></span>
+            <span>4 min read</span>
+            <span>Local Route Launcher</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="article">
+    <div class="wrap">
+      <div class="railrow">
+        <div class="rail"><b>02</b>Body</div>
+        <article>
+          <div class="article-body">
+<p>The first public release was named after the thing it changed: a proxy launcher for one specific application. By version 1.1.0 the public name was Local Route Launcher, and the repository still is not. Both of those facts are deliberate, and the gap between them is the most useful thing I learned from shipping the rename.</p>
+
+<h2>Why the old name had to go</h2>
+
+<p>It put someone else's trademark in the product name. The tool is independent and unaffiliated; a name that reads like an official companion for another company's application implies a relationship that does not exist, and no disclaimer under the download button fixes a name that already made the claim.</p>
+
+<p>It also described the mechanism instead of the job. The mechanism is “proxy for one app”. The job is “route this launch, and leave the machine alone”. The second one is what the tool actually does, and it is what people search for after they have already given up on the first.</p>
+
+<h2>A name is attached to six things</h2>
+
+<p>Renaming feels like one decision. In practice it touches six, and they have very different costs:</p>
+
+<ul>
+  <li>The name shown to a person — window title, menus, installer, documentation.</li>
+  <li>The file name of the application bundle and the release artefacts.</li>
+  <li>The bundle identifier.</li>
+  <li>The preferences domain, where saved settings live.</li>
+  <li>The repository URL.</li>
+  <li>Every link, article, bookmark and search result that already points at any of the above.</li>
+</ul>
+
+<p>Three of those are cheap to change. Three are expensive, and the expense is paid by people who already installed version 1.0.0 and do not read changelogs.</p>
+
+<h2>The rule I settled on</h2>
+
+<blockquote>Change what is public and cheap. Leave alone what is private and load-bearing.</blockquote>
+
+<p>The name in the interface is public and cheap: change it. The installer file name is public and cheap: change it, and the download page with it.</p>
+
+<p>The bundle identifier is private and load-bearing. Change it and the operating system treats the new build as a different application: the saved settings belong to something that no longer exists, and both copies can be installed side by side without either knowing about the other. For a rename, that is a silent failure. It stayed.</p>
+
+<p>The preferences domain is the same argument with a shorter blast radius: it holds the proxy endpoint and the interface language. It stayed, so an upgrade keeps both.</p>
+
+<p>The repository URL stayed for a third reason. GitHub redirects a renamed repository, so cloning would have survived — but the published project site lives under a path derived from that name, and every external link to a release asset points at the old path. A redirect is a courtesy, not a contract, and it does not cover links other people have already copied.</p>
+
+<p>So the repository keeps the historical name, the application has the new one, and the documentation says once, plainly, that the URL is retained for link continuity while the public name is something else. Having to explain it is the cost. A broken upgrade would have been the alternative.</p>
+
+<h2>What the rename actually costs</h2>
+
+<p>Search results keep showing the old name for months, because the old name is in every article that was ever written about the project, including the ones I wrote. The repository and the product disagree permanently, which looks like carelessness until someone reads the note. And every document needs one sentence of history that a reader will skip.</p>
+
+<p>None of that is comparable to the cost of telling a user that their settings are gone because the name changed. An identifier that other people's data depends on is a public interface, whether or not it was designed as one.</p>
+
+<h2>The general version</h2>
+
+<p>This is not really about naming. Any string that someone else's data or links depend on — a bundle identifier, a preferences domain, a database column, a URL path, a JSON key — becomes an interface the moment it ships. Interfaces are migrated, not renamed. You add the new one, keep the old one working, and only remove it when you can see that nothing is using it. For a two-person project the visible cost of keeping an old identifier is one sentence in the docs. The invisible cost of dropping it is somebody's settings.</p>
+
+<p>The rename shipped in a minor version, with one line in the changelog that says the public name changed, the repository links and preference storage stayed compatible, and existing settings carry over. That line is the whole migration plan. It took less time to write than the icon.</p>
+          </div>
+
+          <aside class="article-next">
+            <p class="meta">Read next</p>
+            <a href="/writing/a-version-number-is-a-build-output/">A version number is a build output</a>
+          </aside>
+
+          <div class="article-foot">
+            <a href="/writing/">← All writing</a>
+            <a href="/projects/local-route-launcher/">The project these notes come from</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-id">A working record of projects built and lessons taken.</p>
+      <nav class="foot-nav" aria-label="Footer">
+        <a class="ext" href="https://github.com/oliver804">GitHub</a>
+        <a href="mailto:oliver804x@gmail.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+    </div>
+    <p class="colophon">Hand-written HTML and CSS. No analytics, no cookies, no build step. Typeface: Newsreader. © 2026 Oliver</p>
+  </div>
+</footer>
+
+</body>
+</html>

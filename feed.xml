@@ -1,20 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Oliver’s Lab — notes</title>
-    <link>https://oliver804.github.io/notes/</link>
-    <description>Working notes on launch paths, failure modes, diagnostics, packaging, and the review step in AI-assisted development.</description>
+    <title>Oliver’s Lab — writing</title>
+    <link>https://oliver804.github.io/writing/</link>
+    <description>Notes from building a small cross-platform tool: scope, behaviour parity, naming, packaging and release checks.</description>
     <language>en</language>
     <lastBuildDate>Tue, 20 Oct 2026 09:00:00 +0000</lastBuildDate>
     <atom:link href="https://oliver804.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 
     <item>
       <title>Why the launcher drives the app instead of the system proxy</title>
-      <link>https://oliver804.github.io/notes/why-the-launcher-drives-the-app/</link>
-      <guid isPermaLink="true">https://oliver804.github.io/notes/why-the-launcher-drives-the-app/</guid>
+      <link>https://oliver804.github.io/writing/why-the-launcher-drives-the-app/</link>
+      <guid isPermaLink="true">https://oliver804.github.io/writing/why-the-launcher-drives-the-app/</guid>
       <pubDate>Tue, 20 Oct 2026 09:00:00 +0000</pubDate>
-      <category>Design notes</category>
+      <category>Software engineering</category>
       <description>A machine-wide proxy switch is one click and fails where you cannot see it. Scoping the same setting to a single process is more work to build and far easier to reason about — and it changes what a diagnostic is allowed to claim.</description>
+    </item>
+
+    <item>
+      <title>One behaviour, two builds</title>
+      <link>https://oliver804.github.io/writing/one-behaviour-two-builds/</link>
+      <guid isPermaLink="true">https://oliver804.github.io/writing/one-behaviour-two-builds/</guid>
+      <pubDate>Tue, 20 Oct 2026 09:00:00 +0000</pubDate>
+      <category>Software engineering</category>
+      <description>The Windows edition is not a port. What two native implementations share, what they cannot share, and how parity gets tested without an account, a display, or anyone to click.</description>
+    </item>
+
+    <item>
+      <title>Renaming a shipped app without breaking the upgrade path</title>
+      <link>https://oliver804.github.io/writing/renaming-a-shipped-app/</link>
+      <guid isPermaLink="true">https://oliver804.github.io/writing/renaming-a-shipped-app/</guid>
+      <pubDate>Tue, 20 Oct 2026 09:00:00 +0000</pubDate>
+      <category>Open source</category>
+      <description>A name is attached to six different things, and only some of them can change. What moved in 1.1.0, what stayed, and why the repository still carries the old name.</description>
+    </item>
+
+    <item>
+      <title>A version number is a build output</title>
+      <link>https://oliver804.github.io/writing/a-version-number-is-a-build-output/</link>
+      <guid isPermaLink="true">https://oliver804.github.io/writing/a-version-number-is-a-build-output/</guid>
+      <pubDate>Tue, 20 Oct 2026 09:00:00 +0000</pubDate>
+      <category>Developer tools</category>
+      <description>A version typed into four places is four versions. One file became the only source, and the release artefacts became things that can answer questions about themselves.</description>
     </item>
 
   </channel>
